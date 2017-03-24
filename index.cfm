@@ -2,7 +2,7 @@
 <!--- CPU Integration --->
 <cfparam name="url.cpu" default="false">
 <!--- SETUP THE ROOTS OF THE BROWSER RIGHT HERE --->
-<cfset rootMapping 	= '/src/tests/' />
+<cfset rootMapping 	= '/src/tests' />
 <cfif directoryExists( rootMapping )>
 	<cfset rootPath = rootMapping>
 <cfelse>
@@ -33,6 +33,7 @@
 
 <!--- Get list of files --->
 <cfdirectory action="list" directory="#rootPath & url.path#" name="qResults" sort="asc" />
+	<cfdump var="#qResults#" />
 <!--- Get the execute path --->
 <cfset executePath = rootMapping & ( url.path eq "/" ? "/" : url.path & "/" )>
 <!--- Get the Back Path --->
