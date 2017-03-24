@@ -56,8 +56,10 @@
 			<title>TestBox Test Runner</title>
 			<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
 			<link rel="stylesheet" href="/assets/css/testbox.css" />
+			<!---
 			<script type="text/javascript" src="/node_modules/requirejs/require.js"></script>
 			<script type="text/javascript" src="/node_modules/normalize/lib/normalize.js"></script>
+			--->
 			<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
 			<script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 			<script type="text/javascript" src="/assets/js/testbox.js"></script>
