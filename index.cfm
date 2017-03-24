@@ -40,9 +40,7 @@
 
 <!--- Get the execute path --->
 <cfset executePath = rootMapping & variables.urlPath />
-<cfif variables.urlPath NEQ '/'>
-	<cfset executePath = rootMapping & '/' & variables.urlPath />
-</cfif>
+
 <!--- Get the Back Path --->
 <cfif variables.urlPath neq "/">
 	<cfset variables.backPath = replacenocase( variables.urlPath, listLast( variables.urlPath, "/" ), "" )>
@@ -118,7 +116,7 @@
 													<li class="list-group-item">
 														<a class="btn btn-primary tb-dir-btn tb-file-btn"
 															role="button"
-															href="#executePath & qResults.name#"
+															href="#executePath & '/' & qResults.name#"
 															<cfif !url.cpu>target="_blank"</cfif>
 														><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>#qResults.name#
 													</li>
@@ -126,7 +124,7 @@
 													<li class="list-group-item">
 														<a class="btn btn-primary tb-dir-btn tb-file-btn"
 															role="button"
-															href="#executePath & qResults.name#?method=runRemote"
+															href="#executePath & '/' & qResults.name#?method=runRemote"
 															<cfif !url.cpu>target="_blank"</cfif>
 														><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>#qResults.name#
 													</li>
