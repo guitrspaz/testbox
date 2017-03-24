@@ -38,8 +38,8 @@
 <cfset executePath = rootMapping & ( url.path eq "/" ? "/" : url.path & "/" )>
 <!--- Get the Back Path --->
 <cfif url.path neq "/">
-	<cfset backPath = replacenocase( url.path, listLast( url.path, "/" ), "" )>
-	<cfset backPath = reReplace( backpath, "/jQuery", "" )>
+	<cfset variables.backPath = replacenocase( url.path, listLast( url.path, "/" ), "" )>
+	<cfset variables.backPath = reReplace( variables.backPath,"/#","" ) />
 </cfif>
 
 <cfoutput>
@@ -65,7 +65,9 @@
 							<a href="##" class="navbar-brand"><img src="http://www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" />v#testbox.getVersion()#</a>
 							<ul class="nav navbar-nav">
 								<li><a href="index.cfm?action=runTestBox&path=#URLEncodedFormat( url.path )#" target="_blank">Run All</a></li>
-								<li><a href="index.cfm?path=#URLEncodedFormat( backPath )#">Go Back</a></li>
+								<cfif StructKeyExists(variables,'backpath')>
+									<li><a href="index.cfm?path=#URLEncodedFormat( variables.backPath )#">Go Back</a></li>
+								</cfif>
 							</ul>
 						</div>
 					</nav>
