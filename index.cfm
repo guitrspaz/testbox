@@ -85,14 +85,10 @@
 								<input type="hidden" name="opt_run" id="opt_run" value="true" />
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 									<div class="panel panel-primary">
-										<div class="panel-heading">
-											<div class="col-lg-6">
-												<h3 class="pull-left">Contents: #executePath#</h3>
-											</div>
-											<div class="col-lg-6">
-												<div class="pull-right">
-													<a role="button" class="btn btn-default" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
-												</div>
+										<div class="panel-heading clearfix">
+											<h3 class="panel-title pull-left">Contents: #executePath#</h3>
+											<div class="btn-group pull-right">
+												<a role="button" class="btn btn-default" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
 											</div>
 										</div>
 										<cfif qResults.recordCount>
