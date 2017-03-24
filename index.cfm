@@ -63,8 +63,10 @@
 					<nav class="navbar navbar-default navbar-static-top" id="site-branding">
 						<div class="container-fluid">
 							<a href="##" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
+							<div class="nav navbar-nav">
+								<h3>v#testbox.getVersion()#</h3>
+							</div>
 							<ul class="nav navbar-nav">
-								<li><h3>v#testbox.getVersion()#</h3></li>
 								<li><a href="index.cfm?action=runTestBox&path=#URLEncodedFormat( url.path )#" target="_blank">Run All</a></li>
 								<cfif StructKeyExists(variables,'backpath')>
 									<li><a href="index.cfm?path=#URLEncodedFormat( variables.backPath )#">Go Back</a></li>
