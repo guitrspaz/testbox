@@ -86,9 +86,13 @@
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 									<div class="panel panel-primary">
 										<div class="panel-heading">
-											<h3 class="pull-left">Contents: #executePath#</h3>
-											<div class="pull-right">
-												<a role="button" class="btn btn-default" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
+											<div class="col-lg-6">
+												<h3 class="pull-left">Contents: #executePath#</h3>
+											</div>
+											<div class="col-lg-6">
+												<div class="pull-right">
+													<a role="button" class="btn btn-default" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
+												</div>
 											</div>
 										</div>
 										<cfif qResults.recordCount>
