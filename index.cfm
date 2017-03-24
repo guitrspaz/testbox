@@ -85,7 +85,7 @@
 										<div class="panel-heading">
 											<h2>Contents: #executePath#</h2>
 											<div class="pull-right">
-												<a role="button" data-toggle="collapse" data-parent="#accordion" href="#contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
+												<a role="button" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
 											</div>
 										</div>
 										<cfif qResults.recordCount>
