@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
 	jQuery(document).on('click','.tb-toggle-btn',function(event){
 		var target=jQuery(event.currentTarget).attr('href');
-		if( jQuery(event.currentTarget).attr('aria-expanded')=='true' && jQuery(target).hasClass('in') ){
+		if( jQuery(target).hasClass('in') ){
 			jQuery(event.currentTarget).find('.tb-accordion-btn-text').eq(0).text('Collapse');
 			jQuery(event.currentTarget).find('.caret').eq(0).removeClass('caret-right');
 		} else {
