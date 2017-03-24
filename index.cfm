@@ -39,7 +39,10 @@
 <cfdirectory action="list" directory="#rootPath & url.path#" type="#variables.displayType#" name="qResults" sort="asc" />
 
 <!--- Get the execute path --->
-<cfset executePath = rootMapping & ( variables.urlPath )>
+<cfset executePath = rootMapping & variables.urlPath />
+<cfif variables.urlPath NEQ '/'>
+	<cfset executePath = rootMapping & '/' & variables.urlPath />
+</cfif>
 <!--- Get the Back Path --->
 <cfif variables.urlPath neq "/">
 	<cfset variables.backPath = replacenocase( variables.urlPath, listLast( variables.urlPath, "/" ), "" )>
