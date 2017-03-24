@@ -72,7 +72,7 @@
 				<header id="masthead" role="navigation">
 					<nav class="navbar navbar-default navbar-static-top" id="site-branding">
 						<div class="container-fluid">
-							<a href="##" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
+							<a href="#rootMapping#" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
 							<ul class="nav navbar-nav">
 								<li><p class="navbar-text">v#testbox.getVersion()#</p></li>
 								<li><a href="index.cfm?action=runTestBox&path=#URLEncodedFormat( url.path )#" target="_blank">Run All</a></li>
