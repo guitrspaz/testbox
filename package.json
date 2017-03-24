@@ -1,0 +1,35 @@
+{
+	"name": "testBox-CPTesting",
+	"version": "1.0.0",
+	"description": "Test Dependencies for TestBox Browser",
+	"main": "index.js",
+	"directories": {
+		"tests": "/src/tests",
+		"testBox":"/testBox"
+	},
+	"dependencies": {
+		"express":"latest",
+		"jquery":"latest",
+		"bootstrap":"latest",
+		"codemirror":"latest",
+		"normalize":"latest",
+		"modernizr":"latest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/jhsph-ctl/src.git"
+	},
+	"keywords": [
+		"ctl",
+		"testing",
+		"jhu",
+		"testbox",
+		"coldfusion"
+	],
+	"author": "Chris Schroeder <schroeder@jhu.edu> (https://github.com/guitrspaz)",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/jhsph-ctl/src/issues"
+	},
+	"homepage": "https://github.com/jhsph-ctl/src#readme"
+}
