@@ -3,10 +3,8 @@ jQuery(document).ready(function() {
 		var target=jQuery(event.currentTarget).attr('href');
 		if( jQuery(target).hasClass('in') ){
 			jQuery(event.currentTarget).find('.tb-accordion-btn-text').eq(0).text('Collapse');
-			jQuery(event.currentTarget).find('.caret').eq(0).removeClass('caret-right');
 		} else {
 			jQuery(event.currentTarget).find('.tb-accordion-btn-text').eq(0).text('Expand');
-			jQuery(event.currentTarget).find('.caret').eq(0).addClass('caret-right');
 		}
 	});
 });

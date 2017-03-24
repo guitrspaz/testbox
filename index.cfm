@@ -92,7 +92,7 @@
 										<div class="panel-heading clearfix">
 											<h3 class="panel-title pull-left">Contents: #executePath#</h3>
 											<div class="btn-group pull-right">
-												<a role="button" class="btn btn-default tb-toggle-btn" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents"><span class="tb-accordion-btn-text">Collapse</span> <span class="caret"></span></a>
+												<a role="button" class="btn btn-default tb-toggle-btn" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents"><span class="tb-accordion-btn-text">Collapse</span></a>
 											</div>
 										</div>
 										<ul id="contents" class="collapse list-group in" role="tabpanel" aria-labelledby="Contents: #executePath#">
