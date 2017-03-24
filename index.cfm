@@ -39,7 +39,7 @@
 <!--- Get the Back Path --->
 <cfif url.path neq "/">
 	<cfset variables.backPath = replacenocase( url.path, listLast( url.path, "/" ), "" )>
-	<cfset variables.backPath = reReplace( variables.backPath,"/#","" ) />
+	<cfset variables.backPath = reReplace( variables.backPath,"/##","" ) />
 </cfif>
 
 <cfoutput>
