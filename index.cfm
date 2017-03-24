@@ -102,13 +102,13 @@
 												</cfif>
 												<cfset dirPath = URLEncodedFormat( ( url.path neq '/' ? '#url.path#/' : '/' ) & qResults.name )>
 												<cfif qResults.type eq "Dir">
-													<li><a href="index.cfm?path=#dirPath#">+#qResults.name#</a></li>
+													<li class="list-group-item"><a href="index.cfm?path=#dirPath#">+#qResults.name#</a></li>
 												<cfelseif listLast( qresults.name, ".") eq "cfm">
-													<li><a class="btn btn-primary" role="button" href="#executePath & qResults.name#" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
+													<li class="list-group-item"><a class="btn btn-primary" role="button" href="#executePath & qResults.name#" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
 												<cfelseif listLast( qresults.name, ".") eq "cfc" and qresults.name neq "Application.cfc">
-													<li><a class="btn btn-primary" role="button" href="#executePath & qResults.name#?method=runRemote" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
+													<li class="list-group-item"><a class="btn btn-primary" role="button" href="#executePath & qResults.name#?method=runRemote" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
 												<cfelse>
-													<li>#qResults.name#</li>
+													<li class="list-group-item">#qResults.name#</li>
 												</cfif>
 											</cfloop>
 										</ul>
