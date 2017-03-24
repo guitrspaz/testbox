@@ -12,10 +12,13 @@
 <!--- param incoming --->
 <cfparam name="url.path" default="/">
 
+<cfset variables.displayType='all' />
+
 <!--- Decodes & Path Defaults --->
-<cfset url.path = urlDecode( url.path )>
-<cfif !len( url.path )>
-	<cfset url.path = "/">
+<cfset variables.urlPath=urlDecode( url.path ) />
+<cfif NOT Len(Trim(variables.urlPath)) OR Trim(variables.urlPath) EQ '/'>
+	<cfset variables.urlPath="/" />
+	<cfset variables.displayType='dir' />
 </cfif>
 
 <!--- Prepare TestBox --->
@@ -31,9 +34,10 @@
 	<cfabort>
 </cfif>
 
-<!--- Get list of files --->
-<cfdirectory action="list" directory="#rootPath & url.path#" name="qResults" sort="asc" />
-	<cfdump var="#qResults#" />
+
+<!--- Get list of tests and subdirectories --->
+<cfdirectory action="list" directory="#rootPath & url.path#" type="#variables.displayType#" name="qResults" sort="asc" />
+
 <!--- Get the execute path --->
 <cfset executePath = rootMapping & ( url.path eq "/" ? "/" : url.path & "/" )>
 <!--- Get the Back Path --->
@@ -91,25 +95,23 @@
 												<a role="button" class="btn btn-default" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
 											</div>
 										</div>
-										<cfif qResults.recordCount>
-											<ul id="contents" class="collapse list-group" role="tabpanel" aria-labelledby="Contents: #executePath#">
-												<cfloop query="qResults">
-													<cfif refind( "^\.", qResults.name )>
-														<cfcontinue>
-													</cfif>
-													<cfset dirPath = URLEncodedFormat( ( url.path neq '/' ? '#url.path#/' : '/' ) & qResults.name )>
-													<cfif qResults.type eq "Dir">
-														<li><a href="index.cfm?path=#dirPath#">+#qResults.name#</a></li>
-													<cfelseif listLast( qresults.name, ".") eq "cfm">
-														<li><a class="btn btn-primary" role="button" href="#executePath & qResults.name#" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
-													<cfelseif listLast( qresults.name, ".") eq "cfc" and qresults.name neq "Application.cfc">
-														<li><a class="btn btn-primary" role="button" href="#executePath & qResults.name#?method=runRemote" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
-													<cfelse>
-														<li>#qResults.name#</li>
-													</cfif>
-												</cfloop>
-											</ul>
-										</cfif>
+										<ul id="contents" class="collapse list-group" role="tabpanel" aria-labelledby="Contents: #executePath#">
+											<cfloop query="qResults">
+												<cfif refind( "^\.", qResults.name )>
+													<cfcontinue>
+												</cfif>
+												<cfset dirPath = URLEncodedFormat( ( url.path neq '/' ? '#url.path#/' : '/' ) & qResults.name )>
+												<cfif qResults.type eq "Dir">
+													<li><a href="index.cfm?path=#dirPath#">+#qResults.name#</a></li>
+												<cfelseif listLast( qresults.name, ".") eq "cfm">
+													<li><a class="btn btn-primary" role="button" href="#executePath & qResults.name#" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
+												<cfelseif listLast( qresults.name, ".") eq "cfc" and qresults.name neq "Application.cfc">
+													<li><a class="btn btn-primary" role="button" href="#executePath & qResults.name#?method=runRemote" <cfif !url.cpu>target="_blank"</cfif>>#qResults.name#</a></li>
+												<cfelse>
+													<li>#qResults.name#</li>
+												</cfif>
+											</cfloop>
+										</ul>
 									</div>
 								</div>
 							</form>
