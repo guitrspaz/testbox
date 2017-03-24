@@ -18,6 +18,16 @@
     width: 75%;
     padding-top: 8px;
 }
+.caret-right {
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+    border-left: 4px solid;
+    display: inline-block;
+    height: 0;
+    opacity: 0.3;
+    vertical-align: top;
+    width: 0;
+}
 #tb-runner{ min-height: 155px}
 #tb-runner #tb-left{ width: 17%; margin-right: 10px; margin-top: 0px; height: 135px; float:left;}
 #tb-runner #tb-right{ width: 80%; }
