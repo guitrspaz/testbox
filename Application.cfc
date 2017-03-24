@@ -10,7 +10,7 @@ component{
 
 	// any mappings go here, we create one that points to the root called test.
 	this.mappings[ "/testbox" ]='/Library/WebServer/Frameworks/testbox';
-	this.mappings[ "/courseplus" ]='/Library/WebServer/CoursePlus/src/tests/';
+	//this.mappings[ "/courseplus" ]='/Library/WebServer/CoursePlus/src/tests/';
 
 	// any orm definitions go here.
 

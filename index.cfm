@@ -2,7 +2,7 @@
 <!--- CPU Integration --->
 <cfparam name="url.cpu" default="false">
 <!--- SETUP THE ROOTS OF THE BROWSER RIGHT HERE --->
-<cfset rootMapping 	= '/coursePlus' />
+<cfset rootMapping 	= '/src/tests/' />
 <cfif directoryExists( rootMapping )>
 	<cfset rootPath = rootMapping>
 <cfelse>
@@ -29,11 +29,10 @@
 		<cfoutput><h1>Invalid incoming directory: #rootMapping & url.path#</h1></cfoutput>
 	</cfif>
 	<cfabort>
-
 </cfif>
 
 <!--- Get list of files --->
-<cfdirectory action="list" directory="#rootPath & url.path#" name="qResults" sort="asc" >
+<cfdirectory action="list" directory="#rootPath & url.path#" name="qResults" sort="asc" />
 <!--- Get the execute path --->
 <cfset executePath = rootMapping & ( url.path eq "/" ? "/" : url.path & "/" )>
 <!--- Get the Back Path --->
