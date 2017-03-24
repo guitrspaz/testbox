@@ -7,6 +7,12 @@ jQuery(document).ready(function() {
 			jQuery(event.currentTarget).find('.tb-accordion-btn-text').eq(0).text('Expand');
 		}
 	});
+	jQuery(document).on('click','.tb-file-btn',function(event){
+		event.preventDefault();
+		jQuery('.tb-toggle-btn').eq(0).trigger('click');
+		jQuery('#tb-results').attr('src',jQuery(event.currentTarget).attr('href'));
+		jQuery('#tb-results').show();
+	});
 });
 function runTests(){
 	jQuery("#btn-run").html( 'Running...' ).css( "opacity", "0.5" );

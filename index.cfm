@@ -110,7 +110,7 @@
 													</li>
 												<cfelseif listLast( qresults.name, ".") eq "cfm">
 													<li class="list-group-item">
-														<a class="btn btn-primary tb-dir-btn"
+														<a class="btn btn-primary tb-dir-btn tb-file-btn"
 															role="button"
 															href="#executePath & qResults.name#"
 															<cfif !url.cpu>target="_blank"</cfif>
@@ -118,7 +118,7 @@
 													</li>
 												<cfelseif listLast( qresults.name, ".") eq "cfc" and qresults.name neq "Application.cfc">
 													<li class="list-group-item">
-														<a class="btn btn-primary tb-dir-btn"
+														<a class="btn btn-primary tb-dir-btn tb-file-btn"
 															role="button"
 															href="#executePath & qResults.name#?method=runRemote"
 															<cfif !url.cpu>target="_blank"</cfif>
@@ -132,7 +132,7 @@
 							</form>
 						</div>
 						<!--- Results --->
-						<div id="tb-results"></div>
+						<iframe style="border:0;width:100%;min-height:800px;display:none;" id="tb-results"></iframe>
 					</div>
 				</div>
 			</div>
