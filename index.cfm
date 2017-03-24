@@ -95,7 +95,7 @@
 												<a role="button" class="btn btn-default" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
 											</div>
 										</div>
-										<ul id="contents" class="collapse list-group" role="tabpanel" aria-labelledby="Contents: #executePath#">
+										<ul id="contents" class="collapse list-group in" role="tabpanel" aria-labelledby="Contents: #executePath#">
 											<cfloop query="qResults">
 												<cfif refind( "^\.", qResults.name )>
 													<cfcontinue>
