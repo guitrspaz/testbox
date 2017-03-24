@@ -13,7 +13,9 @@ component{
 	this.mappings[ "/courseplus" ]='/Library/WebServer/CoursePlus/src/tests/';
 
 	// any orm definitions go here.
-
+	public function onApplicationStart(){
+		return this;
+	}
 	// request start
 	public boolean function onRequestStart( String targetPage ){
 		cachePut('testingCacheInit',Now(),CreateTimeSpan(0,0,5,0),CreateTimeSpan(0,0,5,0));
