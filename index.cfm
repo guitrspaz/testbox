@@ -2,8 +2,7 @@
 <!--- CPU Integration --->
 <cfparam name="url.cpu" default="false">
 <!--- SETUP THE ROOTS OF THE BROWSER RIGHT HERE --->
-<cfdump var="#application#" /><cfabort />
-<cfset rootMapping 	= application.mappings['coursePlus'] />
+<cfset rootMapping 	= '/coursePlus' />
 <cfif directoryExists( rootMapping )>
 	<cfset rootPath = rootMapping>
 <cfelse>
