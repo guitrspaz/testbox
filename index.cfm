@@ -86,7 +86,7 @@
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 									<div class="panel panel-primary">
 										<div class="panel-heading">
-											<h2>Contents: #executePath#</h2>
+											<h3 class="pull-left">Contents: #executePath#</h3>
 											<div class="pull-right">
 												<a role="button" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents">Expand <span class="caret"></span></a>
 											</div>
