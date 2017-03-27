@@ -38,7 +38,7 @@ component
 			if( errorStruct.totals.mapParts ){
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
 					var isUnreachable=(mpidx==errorStruct.totals.mapParts)?true:false;
-					errorStruct.urlString=ListAppend(Trim(errorStruct.result),'/');
+					errorStruct.urlString=ListAppend(Trim(mp),'/');
 					if( isUnreachable ){
 						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
 					} else {
