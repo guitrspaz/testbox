@@ -34,7 +34,19 @@ li.a.unreachable,li.unreachable>a,a.unreachable {
   cursor: default;
   color:#FFF;
 }
-.breadcrumb{ background:transparent !important; background-color:none; border:0; margin-bottom:0; }
+.breadcrumb,
+.breadcrumb a,
+.breadcrumb a:hover,
+.breadcrumb a:focus,
+.breadcrumb a:visited,
+.breadcrumb a:active{
+	background:transparent !important;
+	background-color:none;
+	border:0;
+	margin-bottom:0;
+	color:#FFF;
+	text-decoration:none;
+}
 .tb-dir-btn { margin-right:16px; }
 #tb-runner{ min-height: 155px}
 #tb-runner #tb-left{ width: 17%; margin-right: 10px; margin-top: 0px; height: 135px; float:left;}
