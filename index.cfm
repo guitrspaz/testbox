@@ -41,9 +41,7 @@
 			variables.attrs['directoryContents']=directoryList(
 				variables.attrs['testRoot'],
 				false,
-				'query',
-				null,
-				'name ASC,size ASC,dateLastModified DESC'
+				'query'
 			);
 		} else {
 			throw(
