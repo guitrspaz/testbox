@@ -24,7 +24,7 @@ component
 			start:Now(),
 			mappingParts:arguments.mappingParts,
 			urlParts:arguments.urlParts,
-			urlString:'/',
+			urlString:'',
 			logType:'warning',
 			encodedPath:'/',
 			result:'',
