@@ -65,7 +65,7 @@
 				).run();
 			break;
 		}
-
+		WriteDump(var=variables.attrs);
 	</cfscript>
 
 	<cfoutput>
