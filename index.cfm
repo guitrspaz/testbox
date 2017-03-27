@@ -123,7 +123,7 @@
 													<cfif refind( "^\.", variables.attrs.directoryContents.name )>
 														<cfcontinue>
 													</cfif>
-													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
+													<cfset variables.attrs['linkPath']='/' />
 													<cfset variables.attrs['linkPath']&=ArrayToList(variables.attrs['path'],'/')&variables.attrs.directoryContents.name />
 													<cfif variables.attrs.directoryContents.type eq "Dir">
 														<li class="list-group-item">
