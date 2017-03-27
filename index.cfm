@@ -39,10 +39,11 @@
 	if(directoryExists(variables.attrs.testRoot)){
 		variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
 		variables.attrs['directoryContents']=directoryList(
-			action="list",
-			type=variables.attrs['displayType'],
-			path=variables.attrs['testRoot'],
-			listInfo="query"
+			variables.attrs['testRoot'],
+			false,
+			'query',
+			null,
+			'name ASC,size ASC,dateLastModified DESC'
 		);
 	} else {
 		throw(
