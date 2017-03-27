@@ -27,6 +27,7 @@ component
 			urlString:'',
 			logType:'warning',
 			encodedPath:'/',
+			result:'',
 			totals:{
 				mapParts:ArrayLen(arguments.mappingParts),
 				urlParts:ArrayLen(arguments.urlParts)
