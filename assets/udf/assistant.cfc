@@ -39,11 +39,11 @@ component
 			if( errorStruct.totals.mapParts ){
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
 					var isUnreachable=(mpidx!=errorStruct.totals.mapParts)?true:false;
-					errorStruct.urlString&=Trim(mp)&'/';
+					//errorStruct.urlString&=Trim(mp)&'/';
 					if( isUnreachable ){
 						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
 					} else {
-						errorStruct.result&='<li><a href="'&errorStruct.urlString&'">'&mp&'</a></li>';
+						errorStruct.result&='<li><a href="index.cfm">'&mp&'</a></li>';
 					}
 				});
 			}
