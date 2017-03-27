@@ -41,8 +41,9 @@ component
 			errorStruct.result&='<ol class="breadcrumb pull-left">';
 			errorStruct.result&='<li class="unreachable"><strong>Contents:</strong></li>';
 			if( errorStruct.totals.mapParts ){
+				var idx=[];
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
-					ArrayAppend(errorStruct.indexes.map,mpidx);
+					ArrayAppend(idx,mpidx);
 					var isReachable=false;
 					if( mpidx==errorStruct.totals.mapParts ){
 						isReachable=true;
@@ -53,11 +54,13 @@ component
 						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
 					}
 				});
+				errorStruct.indexes['map']=idx;
 			}
 			if( errorStruct.totals.urlParts ){
 				errorStruct.urlString&='?path=';
+				var pidx=[];
 				ArrayEach(arguments.urlParts,function(up,upidx){
-					ArrayAppend(errorStruct.indexes.url,upidx);
+					ArrayAppend(pidx,upidx);
 					var isActive=false;
 					if( upidx==errorStruct.totals.urlParts ){
 						isActive=true;
@@ -69,6 +72,7 @@ component
 						errorStruct.result&='<li><a href="'&errorStruct.urlString&itemURLPath&'">'&up&'</a></li>';
 					}
 				});
+				errorStruct.indexes['url']=pidx;
 			}
 			errorStruct.result&='</ol>';
 			errorStruct.logType='information';
