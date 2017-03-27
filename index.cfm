@@ -4,10 +4,13 @@
 <cfparam name="url.action" default="" type="string" />
 
 <cfscript>
+	variables.assistant=new assets.udf.Assistant();
 	variables.attrs={};
 	variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
 	variables.attrs['displayType']='dir';
 	variables.attrs['rootMapping']='/src/tests';
+	variables.attrs['mappingParts']=[];
+	variables.attrs['allParts']=[];
 	variables.attrs['testRoot']=variables.attrs['rootMapping'];
 	variables.attrs['testbox']=new testbox.system.TestBox();
 	variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'list';
@@ -15,24 +18,24 @@
 	variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
 	variables.attrs['directoryCounter']=0;
 	variables.attrs['linkPath']=URLEncodedFormat(variables.attrs['testRoot']);
+	variables.attrs['breadcrumbNav']='';
 
 	if( !directoryExists(variables.attrs.testRoot) ){
 		variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
-		variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.testRoot,'/'),function(pathItem){
-			return Len(Trim(pathItem));
+		variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs.testRoot,'/'),function(pathItem){
+			return ( Len(Trim(pathItem)) );
 		});
+		ArrayAppend(variables.attrs['allParts'],variables.attrs['mappingParts'],true);
 	}
 
 	if( Len(Trim(variables.attrs['urlPath'])) ){
 		variables.attrs['displayType']='all';
-		ArrayEach(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
-			if(Len(Trim(pathItem))){
-				ArrayAppend(variables.attrs.path,pathItem);
-			}
+		variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
+			return (Len(Trim(pathItem)));
 		});
+		ArrayAppend(variables.attrs['allParts'],variables.attrs['path'],true);
 	}
-
-	variables.attrs['testRoot']=ArrayToList(variables.attrs.path,'/');
+	variables.attrs['testRoot']=ArrayToList(variables.attrs.allParts,'/');
 	if(directoryExists(variables.attrs.testRoot)){
 		variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
 		variables.attrs['directoryContents']=directoryList(
@@ -48,6 +51,13 @@
 		);
 	}
 
+	if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
+		variables.attrs['breadcrumbNav']=variables.assistant.buildBreadCrumbs(
+			urlParts=variables.attrs['path'],
+			mappingParts=variables.attrs['mappingParts']
+		);
+	}
+
 	switch(variables.attrs['action']){
 		case 'runTestBox':
 			variables.attrs['testbox'].init(
@@ -55,16 +65,8 @@
 			).run();
 		break;
 	}
+
 </cfscript>
-
-<!--- Get the execute path --->
-<cfset executePath = variables.attrs['rootMapping'] & variables.urlPath />
-
-<!--- Get the Back Path --->
-<cfif variables.urlPath neq "/">
-	<cfset variables.backPath = replacenocase( variables.urlPath, '/'&listLast( variables.urlPath, "/" ), "" )>
-	<cfset variables.backPath = reReplace( variables.backPath,"/##","" ) />
-</cfif>
 
 <cfoutput>
 <!--- Do HTML --->
@@ -93,9 +95,6 @@
 							<ul class="nav navbar-nav">
 								<li><p class="navbar-text">v#variables.attrs['testbox'].getVersion()#</p></li>
 								<li><a href="index.cfm?action=runTestBox&path=#URLEncodedFormat( url.path )#" target="_blank">Run All</a></li>
-								<cfif StructKeyExists(variables,'backpath')>
-									<li><a href="index.cfm?path=#URLEncodedFormat( variables.backPath )#">Go Back</a></li>
-								</cfif>
 							</ul>
 						</div>
 					</nav>
@@ -113,17 +112,11 @@
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 									<div class="panel panel-primary">
 										<div class="panel-heading clearfix">
-											<ol class="breadcrumb pull-left">
-												<cfscript>
-													variables.assembledPath='/';
-													ArrayEach(variables.attrs['path'],function(bcItem,bcIdx){
-														variables.assembledPath&=bcItem;
-														variables.assembledPath&=(bcIdx<ArrayLen(variables.attrs.path))?'/':'';
-														variables.isActive=(bcIdx==ArrayLen(variables.attrs.path))?' class="active"':'';
-														WriteOutput('<li'&variables.isActive&'><a href="'&variables.assembledPath&'">'&bcItem&'</a></li>');
-													});
-												</cfscript>
-											</div>
+											<cfscript>
+												if(Len(Trim(variables.attrs['breadcrumbNav']))){
+													WriteOutput(variables.attrs['breadcrumbNav']);
+												}
+											</cfscript>
 											<h3 class="panel-title pull-left">Contents:</h3>
 											<div class="btn-group pull-right">
 												<a role="button" class="btn btn-default tb-toggle-btn" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents"><span class="tb-accordion-btn-text">Collapse</span></a>

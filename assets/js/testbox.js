@@ -13,6 +13,11 @@ jQuery(document).ready(function() {
 		jQuery('#tb-results').attr('src',jQuery(event.currentTarget).attr('href'));
 		jQuery('#tb-results').show();
 	});
+
+	jQuery(document).on('click','.unreachable',function(event){
+		event.preventDefault();
+		return false;
+	});
 });
 function runTests(){
 	jQuery("#btn-run").html( 'Running...' ).css( "opacity", "0.5" );
