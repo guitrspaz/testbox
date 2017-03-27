@@ -33,7 +33,7 @@
 			return (Len(Trim(pathItem)));
 		});
 	}
-	variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs.urlPath,'/'),'/');
+	variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
 	if(directoryExists(variables.attrs.testRoot)){
 		variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
 		variables.attrs['directoryContents']=directoryList(
