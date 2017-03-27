@@ -41,7 +41,8 @@
 		variables.attrs['directoryContents']=directoryList(
 			action="list",
 			type=variables.attrs['displayType'],
-			directory=variables.attrs['testRoot']
+			directory=variables.attrs['testRoot'],
+			listInfo="query"
 		);
 	} else {
 		throw(
