@@ -35,6 +35,7 @@ component
 		};
 		try{
 			errorStruct.result&='<ol class="breadcrumb pull-left">';
+			errorStruct.result&='<li class="unreachable"><strong>Contents:</strong></li>';
 			if( errorStruct.totals.mapParts ){
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
 					var isUnreachable=(mpidx!=errorStruct.totals.mapParts)?true:false;

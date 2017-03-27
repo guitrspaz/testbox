@@ -32,6 +32,7 @@ li.a.unreachable,li.unreachable>a,a.unreachable {
   opacity: 0.5;
   pointer-events:none;
   cursor: default;
+  color:#FFF;
 }
 
 .tb-dir-btn { margin-right:16px; }
