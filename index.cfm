@@ -48,7 +48,7 @@
 	} else {
 		WriteDump(
 			label="The defined test root does not exist.",
-			var=SerializeJSON(variables.attrs),
+			var=variables.attrs,
 			abort=true
 		);
 	}
