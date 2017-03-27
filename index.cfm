@@ -133,7 +133,7 @@
 															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															<a href="index.cfm?path=#variables.attrs['linkPath']#">#variables.attrs.directoryContents.name#</a>
 														</li>
-													<cfelseif listLast( variables.attrs.directoryContents.name, ".") eq "cfm">
+													<cfelseif listLast( variables.attrs.directoryContents.name, ".") eq "cfm" and variables.attrs.directoryContents.name neq "Application.cfm">
 														<li class="list-group-item">
 															<a class="btn btn-primary tb-dir-btn tb-file-btn"
 																role="button"
