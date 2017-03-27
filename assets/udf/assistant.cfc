@@ -24,7 +24,7 @@ component
 			start:Now(),
 			mappingParts:arguments.mappingParts,
 			urlParts:arguments.urlParts,
-			urlString:'',
+			urlString:'/',
 			logType:'warning',
 			encodedPath:'/',
 			result:'',
@@ -38,7 +38,7 @@ component
 			if( errorStruct.totals.mapParts ){
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
 					var isUnreachable=(mpidx==errorStruct.totals.mapParts)?true:false;
-					errorStruct.urlString=ListAppend(Trim(errorStruct.urlString),Trim(mp),'/');
+					errorStruct.urlString&=Trim(mp)&'/';
 					if( isUnreachable ){
 						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
 					} else {
