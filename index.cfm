@@ -25,7 +25,6 @@
 		variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs.testRoot,'/'),function(pathItem){
 			return ( Len(Trim(pathItem)) );
 		});
-		ArrayAppend(variables.attrs['allParts'],variables.attrs['mappingParts'],true);
 	}
 
 	if( Len(Trim(variables.attrs['urlPath'])) ){
@@ -33,9 +32,8 @@
 		variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
 			return (Len(Trim(pathItem)));
 		});
-		ArrayAppend(variables.attrs['allParts'],variables.attrs['path'],true);
 	}
-	variables.attrs['testRoot']=ArrayToList(variables.attrs.allParts,'/');
+	variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs.urlPath,'/'),'/');
 	if(directoryExists(variables.attrs.testRoot)){
 		variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
 		variables.attrs['directoryContents']=directoryList(
