@@ -38,12 +38,14 @@ component
 			errorStruct.result&='<li class="unreachable"><strong>Contents:</strong></li>';
 			if( errorStruct.totals.mapParts ){
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
-					var isUnreachable=(mpidx!=errorStruct.totals.mapParts)?true:false;
-					//errorStruct.urlString&=Trim(mp)&'/';
-					if( isUnreachable ){
-						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
-					} else {
+					var isReachable=false;
+					if( mpidx==errorStruct.totals.mapParts ){
+						isReachable=true;
+					}
+					if( isReachable ){
 						errorStruct.result&='<li><a href="index.cfm">'&mp&'</a></li>';
+					} else {
+						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
 					}
 				});
 			}
