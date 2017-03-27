@@ -70,7 +70,7 @@ component
 			errorStruct.cfcatch=e;
 			errorStruct.logType='error';
 		}
-		if( errorStruct.logType!='information' ){
+		if( errorStruct.logType!='test' ){
 			WriteLog('assets.udf.Assistant.buildBreadCrumbs() > '&SerializeJSON(errorStruct),errorStruct.logType,'yes','TestBox');
 		}
 		return errorStruct.result;
