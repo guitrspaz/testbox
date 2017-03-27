@@ -20,11 +20,15 @@
 		variables.attrs['directoryCounter']=0;
 		variables.attrs['linkPath']='';
 		variables.attrs['breadcrumbNav']='';
+		variables.attrs['totals']={};
+		variables.attrs['totals']['mapParts']=0;
+		variables.attrs['totals']['urlParts']=0;
 
 		if( !directoryExists(variables.attrs.testRoot) ){
 			variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs.testRoot,'/'),function(pathItem){
 				return ( Len(Trim(pathItem)) );
 			});
+			variables.attrs['totals']['mapParts']=ArrayLen(variables.attrs['mappingParts']);
 			variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
 		}
 
@@ -33,6 +37,7 @@
 			variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
 				return (Len(Trim(pathItem)));
 			});
+			variables.attrs['totals']['urlParts']=ArrayLen(variables.attrs['path']);
 		}
 
 		variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
