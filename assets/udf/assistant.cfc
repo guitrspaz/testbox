@@ -37,7 +37,7 @@ component
 			errorStruct.result&='<ol class="breadcrumb pull-left">';
 			if( errorStruct.totals.mapParts ){
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
-					var isUnreachable=(mpidx==errorStruct.totals.mapParts)?true:false;
+					var isUnreachable=(mpidx!=errorStruct.totals.mapParts)?true:false;
 					errorStruct.urlString&=Trim(mp)&'/';
 					if( isUnreachable ){
 						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
