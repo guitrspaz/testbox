@@ -50,7 +50,7 @@
 			message="no valid test root",
 			type="InvalidRoot",
 			detail="The defined test root does not exist.",
-			extendedInfo=SerializeJSON(variables.attrs)
+			extendedInfo="#SerializeJSON(variables.attrs)#"
 		);
 	}
 
