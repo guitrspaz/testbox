@@ -146,7 +146,10 @@
 																href="#variables.attrs['linkPath']#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-															<a href="#variables.attrs['linkPath']#" <cfif !variables.attrs['cpu']>target="_blank"</cfif>>#variables.attrs.directoryContents.name#</a>
+															<a class="tb-file-btn"
+																href="#variables.attrs['linkPath']#"
+																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
+															>#variables.attrs.directoryContents.name#</a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") eq "cfc" and variables.attrs.directoryContents.name neq "Application.cfc">
 														<li class="list-group-item">
@@ -155,7 +158,10 @@
 																href="#variables.attrs['linkPath']#?method=runRemote"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-															<a href="#variables.attrs['linkPath']#?method=runRemote" <cfif !variables.attrs['cpu']>target="_blank"</cfif>>#variables.attrs.directoryContents.name#</a>
+															<a class="tb-file-btn"
+																href="#variables.attrs['linkPath']#?method=runRemote"
+																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
+															>#variables.attrs.directoryContents.name#</a>
 														</li>
 													</cfif>
 												</cfloop>
