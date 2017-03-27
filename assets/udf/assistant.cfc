@@ -67,7 +67,8 @@ component
 					if( upidx==totalURLParts ){
 						isActive=true;
 					}
-					var itemURLPath=URLEncodedFormat(ReplaceNoCase(ListAppend(Trim(errorStruct.encodedPath),up,'/'),'//','/','ALL'));
+					errorStruct.encodedPath=ReplaceNoCase(ListAppend(Trim(errorStruct.encodedPath),up,'/'),'//','/','ALL');
+					var itemURLPath=URLEncodedFormat(errorStruct.encodedPath);
 					if( isActive ){
 						errorStruct.result&='<li class="active">'&up&'</li>';
 					} else {
