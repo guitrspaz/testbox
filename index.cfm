@@ -129,7 +129,7 @@
 														<cfif variables.attrs.directoryContents.type eq "Dir">
 															<cfset variables.attrs['linkPath']='/' />
 														</cfif>
-														<cfset variables.attrs['linkPath']&=URLEncodedFormat( ArrayToList(variables.attrs['path'],'/')&variables.attrs.directoryContents.name ) />
+														<cfset variables.attrs['linkPath']&=ArrayToList(variables.attrs['path'],'/')&variables.attrs.directoryContents.name />
 													</cfif>
 													<cfif variables.attrs.directoryContents.type eq "Dir">
 														<li class="list-group-item">
@@ -137,7 +137,7 @@
 																role="button"
 																href="index.cfm?path=#variables.attrs['linkPath']#"
 															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-															<a href="index.cfm?path=#variables.attrs['linkPath']#">#variables.attrs.directoryContents.name#</a>
+															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#">#variables.attrs.directoryContents.name#</a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") eq "cfm" and variables.attrs.directoryContents.name neq "Application.cfm">
 														<li class="list-group-item">
