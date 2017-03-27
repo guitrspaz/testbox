@@ -10,6 +10,7 @@
 		variables.attrs['displayType']='dir';
 		variables.attrs['rootMapping']='/src/tests';
 		variables.attrs['mappingParts']=[];
+		variables.attrs['path']=[];
 		variables.attrs['allParts']=[];
 		variables.attrs['testRoot']=variables.attrs['rootMapping'];
 		variables.attrs['testbox']=new testbox.system.TestBox();
