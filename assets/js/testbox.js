@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
 		jQuery('.tb-toggle-btn').eq(0).trigger('click');
 		jQuery('#tb-results').attr('src',jQuery(event.currentTarget).attr('href'));
 		jQuery('#tb-results').show();
+		return false;
 	});
 
 	jQuery(document).on('click','.unreachable',function(event){
