@@ -21,10 +21,10 @@
 		variables.attrs['breadcrumbNav']='';
 
 		if( !directoryExists(variables.attrs.testRoot) ){
-			variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
 			variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs.testRoot,'/'),function(pathItem){
 				return ( Len(Trim(pathItem)) );
 			});
+			variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
 		}
 
 		if( Len(Trim(variables.attrs['urlPath'])) ){
