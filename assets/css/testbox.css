@@ -28,11 +28,13 @@
     vertical-align: top;
     width: 0;
 }
-li.a.unreachable,li.unreachable>a,a.unreachable {
+.breadcrumb>li.unreachable,.breadcrumb>li.unreachable>a,.breadcrumb a.unreachable,.breadcrumb>li>a.active {
   opacity: 0.5;
+  font-style:italic,
+  font-weight:bold;
   pointer-events:none;
   cursor: default;
-  color:#FFF;
+  color:#EEE;
 }
 .breadcrumb,
 .breadcrumb a,
