@@ -42,7 +42,7 @@
 				variables.attrs['testRoot'],
 				false,
 				'query',
-				false,
+				null,
 				'name ASC,size ASC,dateLastModified DESC'
 			);
 		} else {
