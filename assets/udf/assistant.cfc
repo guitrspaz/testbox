@@ -28,6 +28,10 @@ component
 			logType:'warning',
 			encodedPath:'/',
 			result:'',
+			indexes:{
+				map:[],
+				url:[]
+			},
 			totals:{
 				mapParts:ArrayLen(arguments.mappingParts),
 				urlParts:ArrayLen(arguments.urlParts)
@@ -38,6 +42,7 @@ component
 			errorStruct.result&='<li class="unreachable"><strong>Contents:</strong></li>';
 			if( errorStruct.totals.mapParts ){
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
+					ArrayAppend(errorStruct.indexes.map,mpidx);
 					var isReachable=false;
 					if( mpidx==errorStruct.totals.mapParts ){
 						isReachable=true;
@@ -52,6 +57,7 @@ component
 			if( errorStruct.totals.urlParts ){
 				errorStruct.urlString&='?path=';
 				ArrayEach(arguments.urlParts,function(up,upidx){
+					ArrayAppend(errorStruct.indexes.url,upidx);
 					var isActive=false;
 					if( upidx==errorStruct.totals.urlParts ){
 						isActive=true;
