@@ -124,9 +124,6 @@
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
-													<cfif variables.attrs.directoryContents.type eq "Dir">
-														<cfset variables.attrs['linkPath']='/' />
-													</cfif>
 													<cfset variables.attrs['linkPath']&=ArrayToList(variables.attrs['path'],'/')&variables.attrs.directoryContents.name />
 													<cfif variables.attrs.directoryContents.type eq "Dir">
 														<li class="list-group-item">
