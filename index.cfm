@@ -113,12 +113,12 @@
 									<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 										<div class="panel panel-primary">
 											<div class="panel-heading clearfix">
+												<h3 class="panel-title pull-left">Contents:</h3>
 												<cfscript>
 													if(Len(Trim(variables.attrs['breadcrumbNav']))){
 														WriteOutput(variables.attrs['breadcrumbNav']);
 													}
 												</cfscript>
-												<h3 class="panel-title pull-left">Contents:</h3>
 												<div class="btn-group pull-right">
 													<a role="button" class="btn btn-default tb-toggle-btn" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents"><span class="tb-accordion-btn-text">Collapse</span></a>
 												</div>
