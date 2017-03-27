@@ -119,7 +119,6 @@
 													<a role="button" class="btn btn-default tb-toggle-btn" data-toggle="collapse" data-parent="##accordion" href="##contents" aria-expanded="true" aria-controls="contents"><span class="tb-accordion-btn-text">Collapse</span></a>
 												</div>
 											</div>
-											<cfdump var="#variables.attrs#" />
 											<ul id="contents" class="collapse list-group in" role="tabpanel" aria-labelledby="Contents: #variables.attrs['testRoot']#">
 												<cfloop query="variables.attrs.directoryContents">
 													<cfif refind( "^\.", variables.attrs.directoryContents.name )>
