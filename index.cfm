@@ -46,11 +46,10 @@
 			'name ASC,size ASC,dateLastModified DESC'
 		);
 	} else {
-		throw(
-			message="no valid test root",
-			type="InvalidRoot",
-			detail="The defined test root does not exist.",
-			extendedInfo="#SerializeJSON(variables.attrs)#"
+		WriteDump(
+			label="The defined test root does not exist.",
+			var=SerializeJSON(variables.attrs),
+			abort=true
 		);
 	}
 
