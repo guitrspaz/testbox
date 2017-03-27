@@ -42,10 +42,11 @@ component
 			errorStruct.result&='<li class="unreachable"><strong>Contents:</strong></li>';
 			if( errorStruct.totals.mapParts ){
 				var idx=[];
+				var totalMappings=errorStruct.totals.mapParts;
 				ArrayEach(arguments.mappingParts,function(mp,mpidx){
 					ArrayAppend(idx,mpidx);
 					var isReachable=false;
-					if( mpidx==errorStruct.totals.mapParts ){
+					if( mpidx==totalMappings ){
 						isReachable=true;
 					}
 					if( isReachable ){
@@ -59,10 +60,11 @@ component
 			if( errorStruct.totals.urlParts ){
 				errorStruct.urlString&='?path=';
 				var pidx=[];
+				var totalURLParts=errorStruct.totals.urlParts;
 				ArrayEach(arguments.urlParts,function(up,upidx){
 					ArrayAppend(pidx,upidx);
 					var isActive=false;
-					if( upidx==errorStruct.totals.urlParts ){
+					if( upidx==totalURLParts ){
 						isActive=true;
 					}
 					var itemURLPath=URLEncodedFormat(ListAppend(Trim(errorStruct.encodedPath),up,'/'));
