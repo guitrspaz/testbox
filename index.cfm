@@ -18,7 +18,7 @@
 		variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
 		variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
 		variables.attrs['directoryCounter']=0;
-		variables.attrs['linkPath']=URLEncodedFormat(variables.attrs['testRoot']);
+		variables.attrs['linkPath']='';
 		variables.attrs['breadcrumbNav']='';
 
 		if( !directoryExists(variables.attrs.testRoot) ){
@@ -124,7 +124,13 @@
 													<cfif refind( "^\.", variables.attrs.directoryContents.name )>
 														<cfcontinue>
 													</cfif>
-													<cfset variables.attrs['linkPath']&=URLEncodedFormat( '/' & variables.attrs.directoryContents.name ) />
+													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
+													<cfif ArrayLen(variables.attrs['path'])>
+														<cfif variables.attrs.directoryContents.type eq "Dir">
+															<cfset variables.attrs['linkPath']='/' />
+														</cfif>
+														<cfset variables.attrs['linkPath']&=URLEncodedFormat( ArrayToList(variables.attrs['path'],'/')&variables.attrs.directoryContents.name ) />
+													</cfif>
 													<cfif variables.attrs.directoryContents.type eq "Dir">
 														<li class="list-group-item">
 															<a class="btn btn-primary tb-dir-btn"
@@ -140,7 +146,7 @@
 																href="#variables.attrs['linkPath']#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-															<a href="#variables.attrs.directoryContents.name#" <cfif !variables.attrs['cpu']>target="_blank"</cfif>>#variables.attrs.directoryContents.name#</a>
+															<a href="#variables.attrs['linkPath']#" <cfif !variables.attrs['cpu']>target="_blank"</cfif>>#variables.attrs.directoryContents.name#</a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") eq "cfc" and variables.attrs.directoryContents.name neq "Application.cfc">
 														<li class="list-group-item">
