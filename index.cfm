@@ -14,15 +14,18 @@
 		variables.attrs['allParts']=[];
 		variables.attrs['testRoot']=variables.attrs['rootMapping'];
 		variables.attrs['testbox']=new testbox.system.TestBox();
-		variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'list';
+		variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
 		variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
 		variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
 		variables.attrs['directoryCounter']=0;
 		variables.attrs['linkPath']='';
 		variables.attrs['breadcrumbNav']='';
+		variables.attrs['groupTestPath']='/';
 		variables.attrs['totals']={};
 		variables.attrs['totals']['mapParts']=0;
 		variables.attrs['totals']['urlParts']=0;
+		variables.attrs['testResultContent']='';
+		variables.attrs['resultFile']='';
 
 		if( !directoryExists(variables.attrs.testRoot) ){
 			variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs.testRoot,'/'),function(pathItem){
@@ -63,14 +66,19 @@
 			);
 		}
 
-		switch(variables.attrs['action']){
+		switch(Trim(variables.attrs['action'])){
 			case 'runTestBox':
-				variables.attrs['testbox'].init(
-					directory=variables.attrs['testRoot']
-				).run();
+				savecontent variable="variables.attrs.testResultContent"{
+					WriteOutput(variables.attrs['testbox'].init(
+						directory=variables.attrs['testRoot']
+					).run());
+				}
+				variables.attrs['resultFileName']=DateFormat(Now(),'YYYY-MM-DD')&'-testResults-'&createUUID()&'.html';
+				variables.attrs['resultFile']='/fileDepot/TestBox/'&variables.attrs['resultFileName'];
+				FileWrite(ExpandPath('/fileDepot/TestBox')&'/'&variables.attrs['resultFileName'],variables.attrs.testResultContent,'utf-8');
 			break;
 		}
-		//WriteDump(var=variables.attrs);
+		//WriteDump(var=variables.attrs,abort=true);
 	</cfscript>
 
 	<cfoutput>
@@ -90,6 +98,13 @@
 				<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
 				<script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 				<script type="text/javascript" src="/assets/js/testbox.js"></script>
+				<cfif Len(Trim(variables.attrs['resultFile']))>
+					<script type="text/javascript">
+						jQuery(document).ready(function(){
+							runTests('#variables.attrs["resultFile"]#');
+						})
+					</script>
+				</cfif>
 			</head>
 			<body class="container-fluid">
 				<div id="page" class="site">
@@ -99,7 +114,8 @@
 								<a href="/" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
 								<ul class="nav navbar-nav">
 									<li><p class="navbar-text">v#variables.attrs['testbox'].getVersion()#</p></li>
-									<li><a href="index.cfm?action=runTestBox&path=#URLEncodedFormat( url.path )#" target="_blank">Run All</a></li>
+									<li><a href="index.cfm?action=runTestBox&path=#URLEncodedFormat( '/'&ArrayToList(variables.attrs['path'],'/') )#">Run All</a></li>
+									<li><a href="##" id="clearResults"><span class="text-danger">Clear Results</span></a></li>
 								</ul>
 							</div>
 						</nav>
@@ -175,9 +191,9 @@
 										</div>
 									</div>
 								</form>
+								<!--- Results --->
+								<iframe style="border:0;width:100%;min-height:800px;display:none;" id="tb-results"></iframe>
 							</div>
-							<!--- Results --->
-							<iframe style="border:0;width:100%;min-height:800px;display:none;" id="tb-results"></iframe>
 						</div>
 					</div>
 				</div>
