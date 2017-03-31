@@ -1,4 +1,4 @@
-# TestBox
+# TestBox jQuery/Bootstrap Browser
 TestBox-based unit testing site
 
 ## Overview
