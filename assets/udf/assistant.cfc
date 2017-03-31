@@ -88,4 +88,16 @@ component
 		}
 		return errorStruct.result;
 	}
+
+	public Struct function configureBrowser(string path='/'){
+		var fileName='unit-test-config.json';
+		var result={};
+		try{
+			var fileData=fileRead(ExpandPath(arguments.path&fileName),'utf-8');
+			if(isJSON(Trim(fileData))){
+				result=DeserializeJSON(Trim(fileData));
+			}
+		} catch( Any e ){}
+		return result;
+	}
 }

@@ -4,81 +4,100 @@
 <cfparam name="url.action" default="" type="string" />
 <cftry>
 	<cfscript>
+		//WriteDump(var=application,abort=true);
 		variables.assistant=new assets.udf.Assistant();
 		variables.attrs={};
-		variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
-		variables.attrs['displayType']='dir';
-		variables.attrs['rootMapping']='/src/tests';
-		variables.attrs['mappingParts']=[];
-		variables.attrs['path']=[];
-		variables.attrs['allParts']=[];
-		variables.attrs['testRoot']=variables.attrs['rootMapping'];
-		variables.attrs['testbox']=new testbox.system.TestBox();
-		variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
-		variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
-		variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
-		variables.attrs['directoryCounter']=0;
-		variables.attrs['linkPath']='';
-		variables.attrs['breadcrumbNav']='';
-		variables.attrs['groupTestPath']='/';
-		variables.attrs['totals']={};
-		variables.attrs['totals']['mapParts']=0;
-		variables.attrs['totals']['urlParts']=0;
-		variables.attrs['testResultContent']='';
-		variables.attrs['resultFile']='';
+		try{
+			variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
+			variables.attrs['displayType']='dir';
+			variables.attrs['rootMapping']=( structKeyExists(application,'testRoot') && Len(Trim(application.testRoot)) )?Trim(application.testRoot):'/undefined';
+			variables.attrs['mappingParts']=[];
+			variables.attrs['path']=[];
+			variables.attrs['allParts']=[];
+			variables.attrs['testRoot']=variables.attrs['rootMapping'];
+			variables.attrs['unexpandedRoot']=variables.attrs['rootMapping'];
+			variables.attrs['testbox']=new testbox.system.TestBox();
+			variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
+			variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
+			variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
+			variables.attrs['directoryCounter']=0;
+			variables.attrs['linkPath']='';
+			variables.attrs['breadcrumbNav']='';
+			variables.attrs['groupTestPath']='/';
+			variables.attrs['totals']={};
+			variables.attrs['totals']['mapParts']=0;
+			variables.attrs['totals']['urlParts']=0;
+			variables.attrs['testResultContent']='';
+			variables.attrs['resultFile']='';
 
-		if( !directoryExists(variables.attrs.testRoot) ){
-			variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs.testRoot,'/'),function(pathItem){
+			/* Assembles testing path */
+			if( !directoryExists(variables.attrs.testRoot) ){
+				/* use expanded path if url path is not recognized */
+				variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
+			}
+
+			/* create an array of mapping directories and a total count */
+			variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs['unexpandedRoot'],'/'),function(pathItem){
 				return ( Len(Trim(pathItem)) );
 			});
 			variables.attrs['totals']['mapParts']=ArrayLen(variables.attrs['mappingParts']);
-			variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
-		}
 
-		if( Len(Trim(variables.attrs['urlPath'])) ){
-			variables.attrs['displayType']='all';
-			variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
-				return (Len(Trim(pathItem)));
-			});
-			variables.attrs['totals']['urlParts']=ArrayLen(variables.attrs['path']);
-		}
+			if( Len(Trim(variables.attrs['urlPath'])) ){
+				/* create an array of test path directories */
+				variables.attrs['displayType']='all';
+				variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
+					return (Len(Trim(pathItem)));
+				});
+				variables.attrs['totals']['urlParts']=ArrayLen(variables.attrs['path']);
+			}
 
-		variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
-		if(directoryExists(variables.attrs.testRoot)){
-			variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
-			variables.attrs['directoryContents']=directoryList(
-				variables.attrs['testRoot'],
-				false,
-				'query'
-			);
-		} else {
-			throw(
-				detail="The defined test root does not exist.",
-				message='No root found',
-				type='NoDefinedRoot'
-			);
-		}
+			/* assemble the testing root */
+			variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
+			variables.attrs['unexpandedRoot']=ListAppend(variables.attrs['unexpandedRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
 
-		if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
-			variables.attrs['breadcrumbNav']=variables.assistant.buildBreadCrumbs(
-				urlParts=variables.attrs['path'],
-				mappingParts=variables.attrs['mappingParts']
-			);
-		}
+			/* validate directory before beginning tests */
+			if(directoryExists(variables.attrs.testRoot)){
+				variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
+				variables.attrs['directoryContents']=directoryList(
+					variables.attrs['testRoot'],
+					false,
+					'query'
+				);
+			} else {
+				throw(
+					detail="The defined test root does not exist.",
+					message='No root found',
+					type='NoDefinedRoot'
+				);
+			}
 
-		switch(Trim(variables.attrs['action'])){
-			case 'runTestBox':
-				savecontent variable="variables.attrs.testResultContent"{
-					WriteOutput(variables.attrs['testbox'].init(
-						directory=variables.attrs['testRoot']
-					).run());
-				}
-				variables.attrs['resultFileName']=DateFormat(Now(),'YYYY-MM-DD')&'-testResults-'&createUUID()&'.html';
-				variables.attrs['resultFile']='/fileDepot/TestBox/'&variables.attrs['resultFileName'];
-				FileWrite(ExpandPath('/fileDepot/TestBox')&'/'&variables.attrs['resultFileName'],variables.attrs.testResultContent,'utf-8');
-			break;
+			/* build breadcrumb navigation */
+			if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
+				variables.attrs['breadcrumbNav']=variables.assistant.buildBreadCrumbs(
+					urlParts=variables.attrs['path'],
+					mappingParts=variables.attrs['mappingParts']
+				);
+			}
+
+			/* handle request action */
+			switch( Trim(LCase(variables.attrs['action'])) ){
+				case 'runtestbox':
+					savecontent variable="variables.attrs.testResultContent"{
+						WriteOutput(
+							variables.attrs['testbox'].init(
+								directory=variables.attrs['unexpandedRoot']
+							).run()
+						);
+					}
+					variables.attrs['resultFileName']=DateFormat(Now(),'YYYY-MM-DD')&'-testResults-'&createUUID()&'.html';
+					variables.attrs['resultFile']='/fileDepot/TestBox/'&variables.attrs['resultFileName'];
+					FileWrite(ExpandPath('/fileDepot/TestBox')&'/'&variables.attrs['resultFileName'],variables.attrs.testResultContent,'utf-8');
+				break;
+			}
+		} catch( Any e ){
+			variables.attrs['cfcatch']=e;
+			WriteDump(var=variables.attrs,label="There was an error loading the browser.",abort=true);
 		}
-		//WriteDump(var=variables.attrs,abort=true);
 	</cfscript>
 
 	<cfoutput>
@@ -146,14 +165,14 @@
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
-													<cfif variables.attrs.directoryContents.type eq "Dir">
+													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir">
 														<cfset variables.attrs['linkPath']='/' />
 													</cfif>
 													<cfif ArrayLen(variables.attrs['path'])>
 														<cfset variables.attrs['linkPath']&=ArrayToList(variables.attrs['path'],'/') />
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
-													<cfif variables.attrs.directoryContents.type eq "Dir">
+													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<li class="list-group-item">
 															<a class="btn btn-primary tb-dir-btn"
 																role="button"
@@ -161,7 +180,7 @@
 															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#">#variables.attrs.directoryContents.name#</a>
 														</li>
-													<cfelseif listLast( variables.attrs.directoryContents.name, ".") eq "cfm" and variables.attrs.directoryContents.name neq "Application.cfm">
+													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
 															<a class="btn btn-primary tb-dir-btn tb-file-btn"
 																role="button"
@@ -173,7 +192,7 @@
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															>#variables.attrs.directoryContents.name#</a>
 														</li>
-													<cfelseif listLast( variables.attrs.directoryContents.name, ".") eq "cfc" and variables.attrs.directoryContents.name neq "Application.cfc">
+													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfc" and variables.attrs.directoryContents.name NEQ "Application.cfc">
 														<li class="list-group-item">
 															<a class="btn btn-primary tb-dir-btn tb-file-btn"
 																role="button"

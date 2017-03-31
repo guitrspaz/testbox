@@ -8,15 +8,14 @@ component{
 	// any other application.cfc stuff goes below:
 	this.sessionManagement = true;
 
-	// any mappings go here, we create one that points to the root called test.
-	this.mappings[ "/testbox" ]='/Library/WebServer/Frameworks/testbox';
-	//this.mappings[ "/courseplus" ]='/Library/WebServer/CoursePlus/src/tests/';
-
-	// any orm definitions go here.
-
 	// request start
-	public boolean function onRequestStart( String targetPage ){
+	public Boolean function onRequestStart( String targetPage ){
 		cachePut('testingCacheInit',Now(),CreateTimeSpan(0,0,5,0),CreateTimeSpan(0,0,5,0));
+		var assistant=new assets.udf.assistant();
+		var config=assistant.configureBrowser();
+		StructEach(config,function(key,value){
+			application[key]=value;
+		});
 		return true;
 	}
 }
