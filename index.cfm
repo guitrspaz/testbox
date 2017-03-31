@@ -145,7 +145,7 @@
 								<h1>TestBox Test Browser: </h1>
 								<p>
 									Below is a listing of the files and folders starting from your root <code>#variables.attrs['testRoot']#</code>.  You can click on individual tests in order to execute them
-									or click on the <strong>Run All</strong> button on your left and it will execute a directory runner from the visible folder.
+									or click on the <a href="index.cfm?action=runTestBox&path=#URLEncodedFormat( '/'&ArrayToList(variables.attrs['path'],'/') )#">Run All</a> button above and it will execute a directory runner from the visible folder.
 								</p>
 								<form name="runnerForm" id="runnerForm">
 									<input type="hidden" name="opt_run" id="opt_run" value="true" />
