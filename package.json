@@ -2,7 +2,7 @@
 	"name": "testBox-CPTesting",
 	"version": "1.0.0",
 	"description": "Test Dependencies for TestBox Browser",
-	"main": "index.js",
+	"main": "index.cfm",
 	"directories": {
 		"tests": "/src/tests",
 		"testBox":"/testBox"

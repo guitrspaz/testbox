@@ -1,5 +1,5 @@
 {
-	"name": "testBox-CPTesting",
+	"name": "TestBox Unit Testing Browser",
 	"version": "1.0.0",
 	"description": "Test Mapping Configuration TestBox Browser",
 	"main": "index.cfm",
