@@ -188,27 +188,23 @@
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
-															<a class="btn btn-success tb-dir-btn tb-file-btn"
-																role="button"
-																href="#variables.attrs['linkPath']#"
-																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-															<a class="tb-file-btn"
-																href="#variables.attrs['linkPath']#"
-																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															>#variables.attrs.directoryContents.name#</a>
+															<span class="btn-group">
+																<a class="btn btn-success tb-dir-btn tb-file-btn"
+																	role="button"
+																	href="#variables.attrs['linkPath']#"
+																	<cfif !variables.attrs['cpu']>target="_blank"</cfif>
+																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
+															</span>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfc" and variables.attrs.directoryContents.name NEQ "Application.cfc">
 														<li class="list-group-item">
-															<a class="btn btn-success tb-dir-btn tb-file-btn"
-																role="button"
-																href="#variables.attrs['linkPath']#?method=runRemote"
-																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-															<a class="tb-file-btn"
-																href="#variables.attrs['linkPath']#?method=runRemote"
-																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															>#variables.attrs.directoryContents.name#</a>
+															<span class="btn-group">
+																<a class="btn btn-success tb-dir-btn tb-file-btn"
+																	role="button"
+																	href="#variables.attrs['linkPath']#?method=runRemote"
+																	<cfif !variables.attrs['cpu']>target="_blank"</cfif>
+																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
+															</span>
 														</li>
 													</cfif>
 												</cfloop>
