@@ -1,5 +1,5 @@
 <cfscript>
-	variables.directory=(structKeyExists(url,'directory'))?ReplaceNoCase(Trim(url.directory),application.testRoot,'','ONE'):'';
+	variables.directory=(structKeyExists(url,'directory'))?url.directory:'';
 	if( Len(Trim(variables.directory)) && DirectoryExists(variables.directory) ){
 		variables.qBundles=directoryList(
 			variables.directory,
