@@ -8,7 +8,7 @@
 		);
 		WriteDump(var=qBundles,label='suites');
 		testbox=new testbox.system.TestBox();
-		testbox.runRemote(directory=ExpandPath(variables.directory));
+		testbox.runRemote(directory=variables.directory);
 	} else {
 		throw(
 			type="Tests.Missing.Directory",
