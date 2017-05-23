@@ -165,6 +165,7 @@
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
+													<cfset variables.attrs['dirTestPath']=variables.attrs['linkPath'] />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir">
 														<cfset variables.attrs['linkPath']='/' />
 													</cfif>
@@ -177,7 +178,7 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn"
 																	role="button"
-																	href="#variables.attrs['linkPath']#?method=runRemote"
+																	href="#variables.attrs['dirTestPath']#?method=runRemote"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
