@@ -174,11 +174,17 @@
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<li class="list-group-item">
-															<a class="btn btn-primary tb-dir-btn"
-																role="button"
-																href="index.cfm?path=#variables.attrs['linkPath']#"
-															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#">#variables.attrs.directoryContents.name#</a>
+															<span class="btn-group">
+																<a class="btn btn-primary tb-dir-btn"
+																	role="button"
+																	href="index.cfm?path=#variables.attrs['linkPath']#"
+																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+																<a class="btn btn-primary tb-dir-btn"
+																	role="button"
+																	href="index.cfm?method=runRemote&directory=#URLEncodedFormat(variables.attrs['linkPath'])#"
+																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
+															</span>
+															<a href="index.cfm?method=runRemote&directory=#URLEncodedFormat(variables.attrs['linkPath'])#">#variables.attrs.directoryContents.name#</a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
@@ -186,7 +192,7 @@
 																role="button"
 																href="#variables.attrs['linkPath']#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+															><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															<a class="tb-file-btn"
 																href="#variables.attrs['linkPath']#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
@@ -198,7 +204,7 @@
 																role="button"
 																href="#variables.attrs['linkPath']#?method=runRemote"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+															><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															<a class="tb-file-btn"
 																href="#variables.attrs['linkPath']#?method=runRemote"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
