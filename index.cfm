@@ -165,6 +165,7 @@
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
+													<cfset variables.attrs['directoryRunnerPath']=variables.attrs['linkPath'] />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir">
 														<cfset variables.attrs['linkPath']='/' />
 													</cfif>
@@ -174,7 +175,7 @@
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
 													<cfset variables.attrs['niceName']=ReplaceNoCase(ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'test_','','ALL'),'_',' ','ALL'),'.cfc','','ONE') />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
-														<cfset variables.attrs['directoryRunnerPath']=variables.attrs['rootMapping']&'/'&variables.attrs.directoryContents.name />
+														<cfset variables.attrs['directoryRunnerPath']&='/'&variables.attrs.directoryContents.name />
 														<li class="list-group-item">
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
