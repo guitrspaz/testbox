@@ -177,7 +177,7 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#variables.attrs['linkPath']#?method=runRemote"
+																	href="runner.cfm?directory=#variables.attrs['linkPath']#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
