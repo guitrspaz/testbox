@@ -177,7 +177,7 @@
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<li class="list-group-item">
 															<span class="btn-group">
-																<a class="btn btn-success tb-dir-btn"
+																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
 																	href="#variables.attrs['dirTestPath']#?method=runRemote"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
