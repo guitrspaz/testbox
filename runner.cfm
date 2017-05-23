@@ -9,5 +9,10 @@
 		WriteDump(var=qBundles,label='suites');
 		testbox=new testbox.system.TestBox();
 		testbox.runRemote(directory=variables.directory);
+	} else {
+		throw(
+			type="Tests.Missing.Directory",
+			message="The directory #variables.directory# is missing"
+		);
 	}
 </cfscript>
