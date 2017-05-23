@@ -2,7 +2,7 @@
 	variables.directory=(structKeyExists(url,'directory'))?url.directory:'';
 	if( Len(Trim(variables.directory)) && DirectoryExists(ExpandPath(variables.directory)) ){
 		variables.qBundles=directoryList(
-			variables.directory,
+			ExpandPath(variables.directory),
 			true,
 			'query'
 		);
