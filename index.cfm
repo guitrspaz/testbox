@@ -165,7 +165,7 @@
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
-													<cfset variables.attrs['dotPath']='' />
+													<cfset variables.attrs['dotPath']=Replace(variables.attrs['rootMapping'],'/','.','ALL') />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir">
 														<cfset variables.attrs['linkPath']='/' />
 													</cfif>
