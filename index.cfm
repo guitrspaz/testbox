@@ -175,11 +175,11 @@
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<li class="list-group-item">
 															<span class="btn-group">
-																<a class="btn btn-default tb-dir-btn"
+																<a class="btn btn-success tb-dir-btn"
 																	role="button"
 																	href="index.cfm?method=runRemote&directory=#URLEncodedFormat(variables.attrs['linkPath'])#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-																<a class="btn btn-success tb-dir-btn"
+																<a class="btn btn-default tb-dir-btn"
 																	role="button"
 																	href="index.cfm?path=#variables.attrs['linkPath']#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
