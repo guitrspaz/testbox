@@ -165,19 +165,23 @@
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
+													<cfset variables.attrs['dotPath']=Replace(variables.attrs['rootMapping'],'/','.','ALL') />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir">
 														<cfset variables.attrs['linkPath']='/' />
 													</cfif>
 													<cfif ArrayLen(variables.attrs['path'])>
 														<cfset variables.attrs['linkPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
+														<cfset variables.attrs['dotPath']&=Replace(ArrayToList(variables.attrs['path'],'.'),'..','.','ALL') />
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
+													<cfset variables.attrs['dotPath']&='.'&Replace(variables.attrs.directoryContents.name,'/','.','ALL') />
+													<cfset variables.attrs['dotPath']=Right(variables.attrs['dotPath'],Len(variables.attrs['dotPath'])-1) />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<li class="list-group-item">
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn"
 																	role="button"
-																	href="index.cfm?method=runRemote&directory=#Replace(Replace(variables.attrs['linkPath'],'/','.','ALL'),'.','','ONE')#"
+																	href="index.cfm?method=runRemote&directory=#variables.attrs['dotPath']#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
