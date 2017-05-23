@@ -171,6 +171,7 @@
 													</cfif>
 													<cfif ArrayLen(variables.attrs['path'])>
 														<cfset variables.attrs['linkPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
+														<cfset variables.attrs['directoryRunnerPath']=variables.attrs['linkPath'] />
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
 													<cfset variables.attrs['niceName']=ReplaceNoCase(ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'test_','','ALL'),'_',' ','ALL'),'.cfc','','ONE') />
