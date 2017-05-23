@@ -184,7 +184,7 @@
 																	href="index.cfm?path=#variables.attrs['linkPath']#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</span>
-															<a href="index.cfm?method=runRemote&directory=#URLEncodedFormat(variables.attrs['linkPath'])#">#variables.attrs.directoryContents.name#</a>
+															<a href="index.cfm?method=runRemote&directory=#URLEncodedFormat(variables.attrs['linkPath'])#"><span style="text-transform:capitalize;">#ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL'))#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
@@ -198,7 +198,7 @@
 															<a class="tb-file-btn"
 																href="#variables.attrs['linkPath']#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															>#variables.attrs.directoryContents.name#</a>
+															><span style="text-transform:capitalize;">#ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL'),'.cfc','','ONE')#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfc" and variables.attrs.directoryContents.name NEQ "Application.cfc">
 														<li class="list-group-item">
@@ -212,7 +212,7 @@
 															<a class="tb-file-btn"
 																href="#variables.attrs['linkPath']#?method=runRemote"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															>#variables.attrs.directoryContents.name#</a>
+															><span style="text-transform:capitalize;">#ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL'),'.cfc','','ONE')#</span></a>
 														</li>
 													</cfif>
 												</cfloop>
