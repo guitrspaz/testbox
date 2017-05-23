@@ -177,7 +177,7 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn"
 																	role="button"
-																	href="index.cfm?method=runRemote&directory=index.cfm?method=runRemote&directory=#Left(Replace(variables.attrs['linkPath'],'/','.','ALL'),1)#"
+																	href="index.cfm?method=runRemote&directory=index.cfm?method=runRemote&directory=#Replace(Replace(variables.attrs['linkPath'],'/','.','ALL'),'.','','ONE')#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
