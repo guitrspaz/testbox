@@ -1,7 +1,6 @@
 <cfscript>
 	variables.directory=(structKeyExists(url,'directory'))?url.directory:'';
 	if( Len(Trim(variables.directory)) && DirectoryExists(ExpandPath(variables.directory)) ){
-		WriteDump(var=qBundles,label='suites');
 		testbox=new testbox.system.TestBox();
 		testbox.runRemote(directory=variables.directory);
 	} else {
