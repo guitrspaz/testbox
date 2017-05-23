@@ -169,7 +169,7 @@
 														<cfset variables.attrs['linkPath']='/' />
 													</cfif>
 													<cfif ArrayLen(variables.attrs['path'])>
-														<cfset variables.attrs['linkPath']&=ArrayToList(variables.attrs['path'],'/') />
+														<cfset variables.attrs['linkPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
@@ -181,10 +181,10 @@
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
-																	href="index.cfm?path=#variables.attrs['linkPath']#"
+																	href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</span>
-															<a href="index.cfm?path=#variables.attrs['linkPath']#"><span style="text-transform:capitalize;">#ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL')#</span></a>
+															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"><span style="text-transform:capitalize;">#ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL')#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
