@@ -172,6 +172,7 @@
 														<cfset variables.attrs['linkPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
+													<cfset variables.attrs['niceName']=ReplaceNoCase(ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'test_','','ALL'),'_',' ','ALL'),'.cfc','','ONE') />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<cfset variables.attrs['directoryRunnerPath']=variables.attrs['rootMapping']&'/'&variables.attrs.directoryContents.name />
 														<li class="list-group-item">
@@ -185,7 +186,7 @@
 																	href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</span>
-															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"><span style="text-transform:capitalize;">#ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL')#</span></a>
+															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
@@ -199,7 +200,7 @@
 															<a class="tb-file-btn"
 																href="#variables.attrs['linkPath']#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															><span style="text-transform:capitalize;">#ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL'),'.cfc','','ONE')#</span></a>
+															><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfc" and variables.attrs.directoryContents.name NEQ "Application.cfc">
 														<li class="list-group-item">
@@ -213,7 +214,7 @@
 															<a class="tb-file-btn"
 																href="#variables.attrs['linkPath']#?method=runRemote"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
-															><span style="text-transform:capitalize;">#ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL'),'.cfc','','ONE')#</span></a>
+															><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
 													</cfif>
 												</cfloop>
