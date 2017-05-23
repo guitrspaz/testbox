@@ -173,7 +173,7 @@
 														<cfset variables.attrs['linkPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
-													<cfset variables.attrs['dirTestPath']&='/'&variables.attrs.directoryContents.name />
+													<cfset variables.attrs['dirTestPath']&=variables.attrs.directoryContents.name />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<li class="list-group-item">
 															<span class="btn-group">
