@@ -165,28 +165,30 @@
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
-													<cfset variables.attrs['directoryViewPath']='/' />
+													<cfset variables.attrs['directoryRunnerPath']=variables.attrs['linkPath'] />
+													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir">
+														<cfset variables.attrs['linkPath']='/' />
+													</cfif>
 													<cfif ArrayLen(variables.attrs['path'])>
 														<cfset variables.attrs['linkPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
-														<cfset variables.attrs['directoryViewPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
+														<cfset variables.attrs['directoryRunnerPath']&=Replace(ArrayToList(variables.attrs['path'],'/'),'//','/','ALL') />
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
-													<cfset variables.attrs['directoryViewPath']&='/'&variables.attrs.directoryContents.name />
 													<cfset variables.attrs['niceName']=ReplaceNoCase(ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'test_','','ALL'),'_',' ','ALL'),'.cfc','','ONE') />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
-														<cfset variables.attrs['directoryViewPath']&='/'&variables.attrs.directoryContents.name />
+														<cfset variables.attrs['directoryRunnerPath']&='/'&variables.attrs.directoryContents.name />
 														<li class="list-group-item">
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="runner.cfm?directory=#variables.attrs['linkPath']#"
+																	href="runner.cfm?directory=#variables.attrs['directoryRunnerPath']#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
-																	href="index.cfm?path=#URLEncodedFormat(variables.attrs['directoryViewPath'])#"
+																	href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</span>
-															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['directoryViewPath'])#"><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
+															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
