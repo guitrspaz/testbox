@@ -177,14 +177,14 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn"
 																	role="button"
-																	href="index.cfm?method=runRemote&directory=#URLEncodedFormat(variables.attrs['linkPath'])#"
+																	href="index.cfm?method=runRemote&directory=#index.cfm?method=runRemote&directory=#Replace(variables.attrs['linkPath'],'/','.','ALL')#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
 																	href="index.cfm?path=#variables.attrs['linkPath']#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</span>
-															<a href="index.cfm?method=runRemote&directory=#Replace(variables.attrs['linkPath'],'/','.','ALL')#"><span style="text-transform:capitalize;">#ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL')#</span></a>
+															<a href="index.cfm?path=#variables.attrs['linkPath']#"><span style="text-transform:capitalize;">#ReplaceNoCase(variables.attrs.directoryContents.name,'_',' ','ALL')#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
