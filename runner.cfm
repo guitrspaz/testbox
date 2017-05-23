@@ -1,6 +1,6 @@
 <cfscript>
 	variables.directory=(structKeyExists(url,'directory'))?url.directory:'';
-	if( Len(Trim(variables.directory)) && DirectoryExists(variables.directory) ){
+	if( Len(Trim(variables.directory)) && DirectoryExists(ExpandPath(variables.directory)) ){
 		variables.qBundles=directoryList(
 			variables.directory,
 			true,
@@ -8,7 +8,7 @@
 		);
 		WriteDump(var=qBundles,label='suites');
 		testbox=new testbox.system.TestBox();
-		testbox.runRemote(directory=variables.directory);
+		testbox.runRemote(directory=ExpandPath(variables.directory));
 	} else {
 		throw(
 			type="Tests.Missing.Directory",
