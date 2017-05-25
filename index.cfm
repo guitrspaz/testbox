@@ -133,7 +133,7 @@
 								<a href="/" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
 								<ul class="nav navbar-nav">
 									<li><p class="navbar-text">v#variables.attrs['testbox'].getVersion()#</p></li>
-									<li><a href="runner.cfm?directory=#( '/'&ArrayToList(variables.attrs['path'],'/') )#">Run All</a></li>
+									<li><a href="runner.cfm?directory=#variables.attrs['rootMapping']#/#ArrayToList(variables.attrs['path'],'/')#" class="tb-file-btn">Run All</a></li>
 									<li><a href="##" id="clearResults"><span class="text-danger">Clear Results</span></a></li>
 								</ul>
 							</div>
