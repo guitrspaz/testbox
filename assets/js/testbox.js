@@ -8,7 +8,6 @@ jQuery(document).ready(function() {
 		}
 	});
 	jQuery('#clearResults').toggle( jQuery('#tb-results').is(':visible') );
-
 	jQuery(document).on('click','.tb-file-btn',function(event){
 		event.preventDefault();
 		runTests(jQuery(event.currentTarget).attr('href'));
@@ -16,9 +15,7 @@ jQuery(document).ready(function() {
 	});
 
 	jQuery(document).on('click','#clearResults',function(event){
-		event.preventDefault();
 		clearResults();
-		return false;
 	});
 
 	jQuery(document).on('click','.unreachable',function(event){
@@ -26,14 +23,12 @@ jQuery(document).ready(function() {
 		return false;
 	});
 });
-
 function clearResults(){
 	jQuery('.tb-toggle-btn').eq(0).trigger('click');
 	jQuery("#tb-results").attr('src','');
 	jQuery('#tb-results').hide();
 	jQuery('#clearResults').toggle( jQuery('#tb-results').is(':visible') );
 }
-
 function runTests(src){
 	jQuery('.tb-toggle-btn').eq(0).trigger('click');
 	jQuery('#tb-results').attr('src',src);
