@@ -106,14 +106,14 @@
 
 		<cfsavecontent variable="local.report">
 			<cfoutput>
-				<div class="list-group spec #lcase( arguments.suiteStats.status )#" id="bundleStats_#arguments.bundleStats.path#" data-bundle="#arguments.bundleStats.path#">
+				<ul class="list-group spec #lcase( arguments.suiteStats.status )#" id="bundleStats_#arguments.bundleStats.path#" data-bundle="#arguments.bundleStats.path#">
 					<cfif !isSimpleValue( arguments.bundleStats.globalException )>
-						<div class="row">
+						<li class="list-group-item">
 							<p class="danger">Global Bundle Exception: #arguments.bundleStats.path#</p>
 							<cfdump var="#arguments.bundleStats.globalException#" />
-						</div>
+						</li>
 					<cfelse>
-						<div class="row">
+						<li class="list-group-item">
 							<div class="alert alert-info">
 								<div class="row">
 									<div class="col-xs-6">
@@ -171,9 +171,9 @@
 									#genSuiteReport( local.nestedSuite, arguments.bundleStats )#
 								</cfloop>
 							</cfif>
-						</div>
+						</li>
 					</cfif>
-				</div>
+				</ul>
 			</cfoutput>
 		</cfsavecontent>
 		<cfreturn local.report>
