@@ -43,7 +43,7 @@ component
 
 		// prepare the report
 		savecontent variable="local.report"{
-			include ExpandPath('/assets/cfm/templates/html.cfm');
+			include '/assets/cfm/templates/html.cfm';
 		}
 		return local.report;
 	}
