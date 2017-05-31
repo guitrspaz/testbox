@@ -8,6 +8,6 @@
 		"/testbox":"/Library/WebServer/Frameworks/testbox",
 		"/core":"/Library/WebServer/Documents/CoursePlus/core",
 		"/com":"/Library/WebServer/Documents/CoursePlus/com",
-		"/siteroot":"/Library/WebServer/Documents/TestBox",
+		"/siteroot":"/Library/WebServer/Documents/TestBox"
 	}
 }
