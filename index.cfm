@@ -94,6 +94,7 @@
 				<title>TestBox Test Runner</title>
 				<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
 				<link rel="stylesheet" href="/assets/css/testbox.css" />
+				<link href="/assets/css/simple.css" rel="stylesheet" />
 				<!---
 				<script type="text/javascript" src="/node_modules/requirejs/require.js"></script>
 				<script type="text/javascript" src="/node_modules/normalize/lib/normalize.js"></script>

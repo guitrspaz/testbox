@@ -1,6 +1,5 @@
 <cfset cDir = getDirectoryFromPath( getCurrentTemplatePath() )>
 <cfoutput>
-<link href="/assets/css/simple.css" rel="stylesheet" type="text/css" />
 <!--- Filter --->
 <div class="" style="float: right">
 	<input type="text" name="bundleFilter" id="bundleFilter" placeholder="Filter Bundles..." size="35">
