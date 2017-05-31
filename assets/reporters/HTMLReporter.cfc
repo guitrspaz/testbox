@@ -49,7 +49,8 @@ component
 
 		// prepare the report
 		savecontent variable="local.report"{
-			include this.getassetRoot()&"/html.cfm";
+			WriteOutput('component works');
+			//include this.getassetRoot()&"/html.cfm";
 		}
 		return local.report;
 	}

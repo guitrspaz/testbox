@@ -1,4 +1,3 @@
-<cfset cDir = getDirectoryFromPath( getCurrentTemplatePath() )>
 <cfoutput>
 	<!--- Navigation --->
 	<nav class="navbar navbar-default">
@@ -120,7 +119,7 @@
 										<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
 											<li class="list-group-item">
 												<h3>Debug: <span class="label label-default">#thisDebug.label#</span></h3>
-												<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateFormat( thisDebug.timestamp, "short" )# at #timeFormat( thisDebug.timestamp, "full")#" top="#thisDebug.top#" />
+												<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateTimeFormat( thisDebug.timestamp, "short" )#" top="#thisDebug.top#" />
 												<cfdump var="#thisDebug.thread#" label="Thread data" />
 											</li>
 										</cfloop>
