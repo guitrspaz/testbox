@@ -5,7 +5,7 @@ component
 {
 	property name="assetRoot" getter="true" setter="true" type="string" default="/";
 
-	function init(String assetRoot='/'){
+	function init(String assetRoot='/assets/cfm/templates'){
 		this.setassetRoot( (DirectoryExists(Trim(arguments.assetRoot)))?Trim(arguments.assetRoot):ExpandPath(Trim(arguments.assetRoot)) );
 		return this;
 	}

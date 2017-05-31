@@ -16,7 +16,7 @@
 			variables.attrs['allParts']=[];
 			variables.attrs['testRoot']=variables.attrs['rootMapping'];
 			variables.attrs['unexpandedRoot']=variables.attrs['rootMapping'];
-			variables.attrs['testbox']=new testbox.system.TestBox( reporter=new assets.reporters.HTMLReporter(assetRoot='/assets') );
+			variables.attrs['testbox']=application.testbox;
 			variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
 			variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
 			variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
@@ -78,22 +78,6 @@
 					urlParts=variables.attrs['path'],
 					mappingParts=variables.attrs['mappingParts']
 				);
-			}
-
-			/* handle request action */
-			switch( Trim(LCase(variables.attrs['action'])) ){
-				case 'runtestbox':
-					savecontent variable="variables.attrs.testResultContent"{
-						WriteOutput(
-							variables.attrs['testbox'].init(
-								directory=variables.attrs['unexpandedRoot']
-							).run()
-						);
-					}
-					variables.attrs['resultFileName']=DateFormat(Now(),'YYYY-MM-DD')&'-testResults-'&createUUID()&'.html';
-					variables.attrs['resultFile']='/fileDepot/TestBox/'&variables.attrs['resultFileName'];
-					FileWrite(ExpandPath('/fileDepot/TestBox')&'/'&variables.attrs['resultFileName'],variables.attrs.testResultContent,'utf-8');
-				break;
 			}
 		} catch( Any e ){
 			variables.attrs['cfcatch']=e;

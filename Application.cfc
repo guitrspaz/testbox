@@ -11,7 +11,8 @@ component{
 	// request start
 	public Boolean function onRequestStart( String targetPage ){
 		cachePut('testingCacheInit',Now(),CreateTimeSpan(0,0,5,0),CreateTimeSpan(0,0,5,0));
-		var assistant=new assets.udf.assistant();
+		application['assistant']=new assets.udf.assistant();
+		application['testbox']=new testbox.system.TestBox( reporter=new assets.reporters.HTMLReporter(assetRoot='/assets') );
 		var config=assistant.configureBrowser();
 		StructEach(config,function(key,value){
 			application[key]=value;
