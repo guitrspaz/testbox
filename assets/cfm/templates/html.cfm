@@ -165,13 +165,13 @@
 										</div>
 									</li>
 								</cfloop>
-							</div>
-						</div>
-						<cfif arrayLen( arguments.suiteStats.suiteStats )>
-							<cfloop array="#arguments.suiteStats.suiteStats#" index="local.nestedSuite">
-								#genSuiteReport( local.nestedSuite, arguments.bundleStats )#
-							</cfloop>
-						</cfif>
+							</ul>
+							<cfif arrayLen( arguments.suiteStats.suiteStats )>
+								<cfloop array="#arguments.suiteStats.suiteStats#" index="local.nestedSuite">
+									#genSuiteReport( local.nestedSuite, arguments.bundleStats )#
+								</cfloop>
+							</cfif>
+						</li>
 					</cfif>
 				</div>
 			</cfoutput>
