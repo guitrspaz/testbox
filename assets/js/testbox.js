@@ -8,6 +8,11 @@ jQuery(document).ready(function() {
 		}
 	});
 
+	jQuery(document).on('click','.inactive-btn',function(event){
+		event.preventDefault();
+		return false;
+	});
+
 	jQuery('.clearResults').each(function(crk,crv){
 		jQuery(crv).toggle( jQuery('#tb-results').text().length );
 	});
