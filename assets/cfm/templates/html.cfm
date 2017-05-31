@@ -19,17 +19,17 @@
 	<div class="panel panel-info" id="globalStats">
 		<div class="panel-heading">Global Stats <em>(#results.getTotalDuration()# ms)</em></div>
 		<div class="panel-body">
-			<ul class="nav nav-pills" role="tablist">
-				<li role="presentation" class="info">Bundles <span class="badge">#results.getTotalBundles()#</span></li>
-				<li role="presentation" class="info">Suites <span class="badge">#results.getTotalSuites()#</span></li>
-				<li role="presentation" class="info">Specs <span class="badge">#results.getTotalSpecs()#</span></li>
-			</ul>
-			<ul class="nav nav-pills" role="tablist">
-				<li role="presentation" class="success">Pass <span class="badge">#results.getTotalPass()#</span></li>
-				<li role="presentation" class="warning">Failures <span class="badge">#results.getTotalFail()#</span></li>
-				<li role="presentation" class="error">Errors <span class="badge">#results.getTotalError()#</span></li>
-				<li role="presentation" class="info">Skipped <span class="badge">#results.getTotalSkipped()#</span></li>
-			</ul>
+			<div class="label-block">
+				<span class="label label-info">Bundles <span class="badge">#results.getTotalBundles()#</span></span>
+				<span class="label label-info">Suites <span class="badge">#results.getTotalSuites()#</span></span>
+				<span class="label label-info">Specs <span class="badge">#results.getTotalSpecs()#</span></span>
+			</div>
+			<div class="label-block">
+				<span class="label label-success">Pass <span class="badge">#results.getTotalPass()#</span></span>
+				<span class="label label-warning">Failures <span class="badge">#results.getTotalFail()#</span></span>
+				<span class="label label-error">Errors <span class="badge">#results.getTotalError()#</span></span>
+				<span class="label label-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></span>
+			</div>
 			<cfif arrayLen( results.getLabels() )>
 				<a class="btn btn-info" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Labels Applied </a>
 				<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
@@ -51,16 +51,16 @@
 				<cfelse>
 					<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em></div>
 					<div class="panel-body">
-						<ul class="nav nav-pills" role="tablist">
-							<li role="presentation" class="info">Suites <span class="badge">#thisBundle.totalSuites#</span></li>
-							<li role="presentation" class="info">Specs <span class="badge">#thisBundle.totalSpecs#</span></li>
-						</ul>
-						<ul class="nav nav-pills" role="tablist">
-							<li role="presentation" class="success">Pass <span class="badge">#thisBundle.totalPass#</span></li>
-							<li role="presentation" class="warning">Failures <span class="badge">#thisBundle.totalFail#</span></li>
-							<li role="presentation" class="error">Errors <span class="badge">#thisBundle.totalError#</span></li>
-							<li role="presentation" class="info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></li>
-						</ul>
+						<div class="label-block">
+							<span class="label label-info">Suites <span class="badge">#thisBundle.totalSuites#</span></span>
+							<span class="label label-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></span>
+						</div>
+						<div class="label-block">
+							<span class="label label-success">Pass <span class="badge">#thisBundle.totalPass#</span></span>
+							<span class="label label-warning">Failures <span class="badge">#thisBundle.totalFail#</span></span>
+							<span class="label label-error">Errors <span class="badge">#thisBundle.totalError#</span></span>
+							<span class="label label-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></span>
+						</div>
 						<cfif arrayLen( thisBundle.debugBuffer )>
 							<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
 							<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
@@ -107,12 +107,12 @@
 					<cfelse>
 						<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em></div>
 						<div class="panel-body">
-							<ul class="nav nav-pills" role="tablist">
-								<li role="presentation" class="success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></a></li>
-								<li role="presentation" class="warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></li>
-								<li role="presentation" class="error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></li>
-								<li role="presentation" class="error">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></li>
-							</ul>
+							<div class="label-block">
+								<span class="label label-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></span>
+								<span class="label label-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></span>
+								<span class="label label-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></span>
+								<span class="label label-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></span>
+							</div>
 						</div>
 						<ul class="list-group">
 							<cfloop array="#arguments.suiteStats.specStats#" index="local.thisSpec">
