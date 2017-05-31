@@ -19,7 +19,7 @@
 	<div class="panel panel-info" id="globalStats">
 		<div class="panel-heading">Global Stats <em>(#results.getTotalDuration()# ms)</em></div>
 		<div class="panel-body">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="row">
 					<div class="pull-left">
 						<span class="text-result text-info">Bundles <span class="badge">#results.getTotalBundles()#</span></span>
