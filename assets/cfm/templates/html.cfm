@@ -19,36 +19,39 @@
 	<div class="panel panel-info" id="globalStats">
 		<div class="panel-heading">Global Stats <em>(#results.getTotalDuration()# ms)</em></div>
 		<div class="panel-body">
-			<div class="btn-group pull-left" role="group" aria-label="packages">
-				<button type="button" class="btn inactive-btn btn-info">Bundles <span class="badge">#results.getTotalBundles()#</span></button>
-				<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#results.getTotalSuites()#</span></button>
-				<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#results.getTotalSpecs()#</span></button>
-			</div>
-			<div class="btn-group pull-right" role="group" aria-label="statuses">
-				<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#results.getTotalPass()#</span></button>
-				<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#results.getTotalFail()#</span></button>
-				<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#results.getTotalError()#</span></button>
-				<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></button>
-			</div>
-			<cfif arrayLen( results.getLabels() )>
-				<a class="btn btn-info" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Labels Applied </a>
-				<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
-					<div class="well">
-						#ArrayToList(results.getLabels(),',')#
-					</div>
+			<div class="row">
+				<div class="btn-group pull-left" role="group" aria-label="packages">
+					<button type="button" class="btn inactive-btn btn-info">Bundles <span class="badge">#results.getTotalBundles()#</span></button>
+					<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#results.getTotalSuites()#</span></button>
+					<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#results.getTotalSpecs()#</span></button>
 				</div>
-			</cfif>
-			<div class="tb-list-group tb-test-bundles">
+				<div class="btn-group pull-right" role="group" aria-label="statuses">
+					<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#results.getTotalPass()#</span></button>
+					<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#results.getTotalFail()#</span></button>
+					<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#results.getTotalError()#</span></button>
+					<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></button>
+				</div>
+			</div>
+			<div class="row">
+				<cfif arrayLen( results.getLabels() )>
+					<a class="btn btn-info" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Labels Applied </a>
+					<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
+						<div class="well">
+							#ArrayToList(results.getLabels(),',')#
+						</div>
+					</div>
+				</cfif>
+			</div>
+			<div class="row">
 			<!--- Bundle Info --->
 				<cfloop array="#variables.bundleStats#" index="thisBundle">
 					<!--- Bundle div --->
 					<div class="panel panel-primary bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
-						<cfif !isSimpleValue( thisBundle.globalException )>
-							<div class="panel-heading">Global Bundle Exception: #thisBundle.path#</div>
-							<cfdump var="#thisBundle.globalException#" />
-						<cfelse>
-							<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em></div>
-							<div class="panel-body">
+						<div class="panel-heading">
+							<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em>
+						</div>
+						<div class="panel-body">
+							<div class="row">
 								<div class="btn-group pull-left" role="group" aria-label="packages">
 									<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#thisBundle.totalSuites#</span></button>
 									<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></button>
@@ -59,7 +62,16 @@
 									<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#thisBundle.totalError#</span></button>
 									<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></button>
 								</div>
-								<cfif arrayLen( thisBundle.debugBuffer )>
+							</div>
+							<cfif ArrayLen(thisBundle.suiteStats)>
+								<div class="row">
+									<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
+										#genSuiteReport( suiteStats,thisBundle )#
+									</cfloop>
+								</div>
+							</cfif>
+							<cfif arrayLen( thisBundle.debugBuffer )>
+								<div class="row">
 									<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
 									<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
 										<div class="well">
@@ -77,14 +89,9 @@
 											</div>
 										</div>
 									</div>
-								</cfif>
-							</div>
-							<cfif ArrayLen(thisBundle.suiteStats)>
-								<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
-									#genSuiteReport( suiteStats,thisBundle )#
-								</cfloop>
+								</div>
 							</cfif>
-						</cfif>
+						</div>
 					</div>
 				</cfloop>
 			</div>
