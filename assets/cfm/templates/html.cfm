@@ -140,12 +140,12 @@
 
 		<cfsavecontent variable="local.report">
 			<cfoutput>
-				<div class="panel panel-primary spec #lcase( local.thisSpec.status )#" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
-					<cfif !isSimpleValue( thisBundle.globalException )>
-						<div class="panel-heading">Global Bundle Exception: #thisBundle.path#</div>
-						<cfdump var="#thisBundle.globalException#" />
+				<div class="panel panel-primary spec #lcase( arguments.suiteStats.status )#" id="bundleStats_#arguments.bundleStats.path#" data-bundle="#arguments.bundleStats.path#">
+					<cfif !isSimpleValue( arguments.bundleStats.globalException )>
+						<div class="panel-heading">Global Bundle Exception: #arguments.bundleStats.path#</div>
+						<cfdump var="#arguments.bundleStats.globalException#" />
 					<cfelse>
-						<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em></div>
+						<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em></div>
 						<ul class="list-group">
 							<li class="list-group-item">
 								<span class="badge">#arguments.suiteStats.totalSpecs#</span>
@@ -153,19 +153,19 @@
 							</li>
 						</ul>
 						<ul class="list-group">
-							<li class="list-group-item success specStatus passed" data-status="passed" data-bundleid="#thisBundle.id#">
+							<li class="list-group-item success specStatus passed" data-status="passed" data-bundleid="#arguments.bundleStats.id#">
 								<span class="badge">#arguments.suiteStats.totalPass#</span>
 								Pass
 							</li>
-							<li class="list-group-item warning specStatus failed" data-status="failed" data-bundleid="#thisBundle.id#">
+							<li class="list-group-item warning specStatus failed" data-status="failed" data-bundleid="#arguments.bundleStats.id#">
 								<span class="badge">#arguments.suiteStats.totalFail#</span>
 								Failures
 							</li>
-							<li class="list-group-item danger specStatus error" data-status="error" data-bundleid="#thisBundle.id#">
+							<li class="list-group-item danger specStatus error" data-status="error" data-bundleid="#arguments.bundleStats.id#">
 								<span class="badge">#arguments.suiteStats.totalError#</span>
 								Errors
 							</li>
-							<li class="list-group-item info specStatus skipped" data-status="skipped" data-bundleid="#thisBundle.id#">
+							<li class="list-group-item info specStatus skipped" data-status="skipped" data-bundleid="#arguments.bundleStats.id#">
 								<span class="badge">#arguments.suiteStats.totalSkipped#</span>
 								Skipped
 							</li>
