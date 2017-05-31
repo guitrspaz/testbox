@@ -5,7 +5,6 @@
 <cftry>
 	<cfscript>
 		//WriteDump(var=application,abort=true);
-		variables.assistant=new assets.udf.Assistant();
 		variables.attrs={};
 		try{
 			variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
@@ -74,7 +73,7 @@
 
 			/* build breadcrumb navigation */
 			if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
-				variables.attrs['breadcrumbNav']=variables.assistant.buildBreadCrumbs(
+				variables.attrs['breadcrumbNav']=application.assistant.buildBreadCrumbs(
 					urlParts=variables.attrs['path'],
 					mappingParts=variables.attrs['mappingParts']
 				);
