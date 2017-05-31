@@ -38,7 +38,7 @@
 					</div>
 				</div>
 			</cfif>
-			<div class="list-group tb-test-bundles">
+			<div class="tb-list-group tb-test-bundles">
 			<!--- Bundle Info --->
 				<cfloop array="#variables.bundleStats#" index="thisBundle">
 					<!--- Bundle div --->
@@ -112,7 +112,7 @@
 								<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></button>
 								<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></button>
 							</div>
-							<div class="list-group">
+							<div class="tb-list-group">
 								<cfloop array="#arguments.suiteStats.specStats#" index="local.thisSpec">
 									<div class="panel panel-default spec #lcase( local.thisSpec.status )#" data-bundleid="#arguments.bundleStats.id#" data-specid="#local.thisSpec.id#">
 										<div class="panel-heading">

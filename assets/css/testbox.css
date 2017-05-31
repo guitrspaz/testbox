@@ -13,6 +13,9 @@ body{
 	height:100%;
 	width:auto;
 }
+.tb-list-group{
+	clear:both;
+}
 .panel-heading h3{
     white-space: nowrap;
     overflow: hidden;
