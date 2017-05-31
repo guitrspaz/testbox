@@ -10,7 +10,16 @@
 		try{
 			variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
 			variables.attrs['displayType']='dir';
-			variables.attrs['rootMapping']=( structKeyExists(application,'testRoot') && Len(Trim(application.testRoot)) )?Trim(application.testRoot):'/undefined';
+			variables.attrs['rootMapping']=(
+				structKeyExists(application,'testRoot')
+				&& Len(Trim(application.testRoot))
+				&& DirectoryExists(Trim(application.testRoot))
+			)?Trim(application.testRoot):(
+				structKeyExists(application,'testRoot')
+				&& Len(Trim(application.testRoot)) &&
+				DirectoryExists(ExpandPath(Trim(application.testRoot)))
+			)?ExpandPath(Trim(application.testRoot)):'/undefined';
+
 			variables.attrs['mappingParts']=[];
 			variables.attrs['path']=[];
 			variables.attrs['allParts']=[];
