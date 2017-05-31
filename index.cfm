@@ -10,16 +10,7 @@
 		try{
 			variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
 			variables.attrs['displayType']='dir';
-			variables.attrs['rootMapping']=(
-				structKeyExists(application,'testRoot')
-				&& Len(Trim(application.testRoot))
-				&& DirectoryExists(Trim(application.testRoot))
-			)?Trim(application.testRoot):(
-				structKeyExists(application,'testRoot')
-				&& Len(Trim(application.testRoot)) &&
-				DirectoryExists(ExpandPath(Trim(application.testRoot)))
-			)?ExpandPath(Trim(application.testRoot)):'/undefined';
-
+			variables.attrs['rootMapping']=( structKeyExists(application,'testRoot') && Len(Trim(application.testRoot)) )?Trim(application.testRoot):'/undefined';
 			variables.attrs['mappingParts']=[];
 			variables.attrs['path']=[];
 			variables.attrs['allParts']=[];
@@ -75,7 +66,8 @@
 			} else {
 				throw(
 					detail="The defined test root does not exist.",
-					message='No root found',
+					message='No root found: '&variables.attrs['testRoot'],
+					extendedInfo=SerializeJSON(variables.attrs),
 					type='NoDefinedRoot'
 				);
 			}
