@@ -16,7 +16,7 @@
 			variables.attrs['allParts']=[];
 			variables.attrs['testRoot']=variables.attrs['rootMapping'];
 			variables.attrs['unexpandedRoot']=variables.attrs['rootMapping'];
-			variables.attrs['testbox']=new testbox.system.TestBox();
+			variables.attrs['testbox']=new testbox.system.TestBox( reporter=new assets.reporters.HTMLReporter(assetRoot='/assets') );
 			variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
 			variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
 			variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
@@ -133,8 +133,8 @@
 								<a href="/" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
 								<ul class="nav navbar-nav">
 									<li><p class="navbar-text">v#variables.attrs['testbox'].getVersion()#</p></li>
-									<li><a href="runner.cfm?directory=#variables.attrs['rootMapping']#/#ArrayToList(variables.attrs['path'],'/')#" class="tb-file-btn">Run All</a></li>
-									<li><a href="##" id="clearResults"><span class="text-danger">Clear Results</span></a></li>
+									<li><a href="/assets/cfm/runner.cfm?directory=#variables.attrs['rootMapping']#/#ArrayToList(variables.attrs['path'],'/')#" class="tb-file-btn">Run All</a></li>
+									<li><a href="##" class="clearResults"><span class="text-danger">Clear Results</span></a></li>
 								</ul>
 							</div>
 						</nav>
@@ -181,7 +181,7 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="runner.cfm?directory=#variables.attrs['directoryRunnerPath']#"
+																	href="/assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
@@ -225,7 +225,7 @@
 									</div>
 								</form>
 								<!--- Results --->
-								<iframe style="border:0;width:100%;min-height:800px;display:none;" id="tb-results"></iframe>
+								<div class="container" id="tb-results"></div>
 							</div>
 						</div>
 					</div>

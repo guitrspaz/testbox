@@ -100,3 +100,77 @@ body{
 }
 #tb-results{ padding: 10px;}
 code{ padding: 2px 4px; color: #d14; white-space: nowrap; background-color: #f7f7f9; border: 1px solid #e1e1e8;}
+
+/* glyphicon spinners - CS Friday, 10/21/2016 08:27:10 AM */
+.glyphicon.fast-right-spinner {
+	-webkit-animation: glyphicon-spin-r 1s infinite linear;
+	animation: glyphicon-spin-r 1s infinite linear;
+}
+
+.glyphicon.normal-right-spinner {
+	-webkit-animation: glyphicon-spin-r 2s infinite linear;
+	animation: glyphicon-spin-r 2s infinite linear;
+}
+
+.glyphicon.slow-right-spinner {
+	-webkit-animation: glyphicon-spin-r 3s infinite linear;
+	animation: glyphicon-spin-r 3s infinite linear;
+}
+
+.glyphicon.fast-left-spinner {
+	-webkit-animation: glyphicon-spin-l 1s infinite linear;
+	animation: glyphicon-spin-l 1s infinite linear;
+}
+
+.glyphicon.normal-left-spinner {
+	-webkit-animation: glyphicon-spin-l 2s infinite linear;
+	animation: glyphicon-spin-l 2s infinite linear;
+}
+
+@-webkit-keyframes glyphicon-spin-r {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes glyphicon-spin-r {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+@-webkit-keyframes glyphicon-spin-l {
+	0% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes glyphicon-spin-l {
+	0% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+}

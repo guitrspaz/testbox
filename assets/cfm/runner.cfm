@@ -1,7 +1,11 @@
 <cfscript>
 	variables.directory=(structKeyExists(url,'directory'))?url.directory:'';
+	/*
+	WriteDump(var=ExpandPath('/assets/cfm/templates/'))
+	WriteDump(var=DirectoryList(ExpandPath('/assets/cfm/templates/'),true,'query','*.cfm'));
+	*/
 	if( Len(Trim(variables.directory)) && DirectoryExists(ExpandPath(variables.directory)) ){
-		testbox=new testbox.system.TestBox();
+		testbox=new testbox.system.TestBox( reporter=new assets.reporters.HTMLReporter(assetRoot='/assets') );
 		testbox.runRemote(directory=variables.directory);
 	} else {
 		throw(
