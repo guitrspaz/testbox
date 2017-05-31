@@ -80,11 +80,9 @@
 								</cfif>
 							</div>
 							<cfif ArrayLen(thisBundle.suiteStats)>
-								<ul class="list-group">
-									<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
-										<li class="list-group-item">#genSuiteReport( suiteStats,thisBundle )#</li>
-									</cfloop>
-								</ul>
+								<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
+									#genSuiteReport( suiteStats,thisBundle )#
+								</cfloop>
 							</cfif>
 						</cfif>
 					</div>
