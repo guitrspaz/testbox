@@ -38,60 +38,61 @@
 					</div>
 				</div>
 			</cfif>
-		</div>
-	</div>
-	<div class="list-group tb-test-bundles">
-	<!--- Bundle Info --->
-		<cfloop array="#variables.bundleStats#" index="thisBundle">
-			<!--- Bundle div --->
-			<div class="panel panel-primary bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
-				<cfif !isSimpleValue( thisBundle.globalException )>
-					<div class="panel-heading">Global Bundle Exception: #thisBundle.path#</div>
-					<cfdump var="#thisBundle.globalException#" />
-				<cfelse>
-					<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em></div>
-					<div class="panel-body">
-						<div class="btn-group pull-left" role="group" aria-label="packages">
-							<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#thisBundle.totalSuites#</span></button>
-							<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></button>
-						</div>
-						<div class="btn-group pull-right" role="group" aria-label="statuses">
-							<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#thisBundle.totalPass#</span></button>
-							<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#thisBundle.totalFail#</span></button>
-							<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#thisBundle.totalError#</span></button>
-							<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></button>
-						</div>
-						<cfif arrayLen( thisBundle.debugBuffer )>
-							<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
-							<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
-								<div class="well">
-									<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
-									<div id="debugBlock#thisBundle.id#">
-										<ul class="list-group">
-											<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
-												<li class="list-group-item">
-													<h3>Debug: <span class="label label-default">#thisDebug.label#</span></h3>
-													<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateTimeFormat( thisDebug.timestamp, "short" )#" top="#thisDebug.top#" />
-													<cfdump var="#thisDebug.thread#" label="Thread data" />
-												</li>
-											</cfloop>
-										</ul>
-									</div>
+			<div class="list-group tb-test-bundles">
+			<!--- Bundle Info --->
+				<cfloop array="#variables.bundleStats#" index="thisBundle">
+					<!--- Bundle div --->
+					<div class="panel panel-primary bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
+						<cfif !isSimpleValue( thisBundle.globalException )>
+							<div class="panel-heading">Global Bundle Exception: #thisBundle.path#</div>
+							<cfdump var="#thisBundle.globalException#" />
+						<cfelse>
+							<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em></div>
+							<div class="panel-body">
+								<div class="btn-group pull-left" role="group" aria-label="packages">
+									<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#thisBundle.totalSuites#</span></button>
+									<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></button>
 								</div>
+								<div class="btn-group pull-right" role="group" aria-label="statuses">
+									<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#thisBundle.totalPass#</span></button>
+									<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#thisBundle.totalFail#</span></button>
+									<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#thisBundle.totalError#</span></button>
+									<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></button>
+								</div>
+								<cfif arrayLen( thisBundle.debugBuffer )>
+									<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
+									<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
+										<div class="well">
+											<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
+											<div id="debugBlock#thisBundle.id#">
+												<ul class="list-group">
+													<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
+														<li class="list-group-item">
+															<h3>Debug: <span class="label label-default">#thisDebug.label#</span></h3>
+															<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateTimeFormat( thisDebug.timestamp, "short" )#" top="#thisDebug.top#" />
+															<cfdump var="#thisDebug.thread#" label="Thread data" />
+														</li>
+													</cfloop>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</cfif>
 							</div>
+							<cfif ArrayLen(thisBundle.suiteStats)>
+								<ul class="list-group">
+									<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
+										<li class="list-group-item">#genSuiteReport( suiteStats,thisBundle )#</li>
+									</cfloop>
+								</ul>
+							</cfif>
 						</cfif>
 					</div>
-					<cfif ArrayLen(thisBundle.suiteStats)>
-						<ul class="list-group">
-							<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
-								<li class="list-group-item">#genSuiteReport( suiteStats,thisBundle )#</li>
-							</cfloop>
-						</ul>
-					</cfif>
-				</cfif>
+				</cfloop>
 			</div>
-		</cfloop>
+		</div>
 	</div>
+
 
 <!--- Recursive Output --->
 	<cffunction name="genSuiteReport" output="false">
