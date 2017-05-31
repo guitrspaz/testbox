@@ -36,7 +36,7 @@ jQuery(document).ready(function() {
 		resetSpecs(event);
 	});
 	// Filter Bundles
-	jQuery(document).on('keyup',"##bundleFilter",function(event){
+	jQuery(document).on('keyup',"#bundleFilter",function(event){
 		var targetText = jQuery( event.currentTarget ).val().toLowerCase();
 		jQuery( ".bundle" ).each(function( ik,iv ){
 			var bundle = jQuery( iv ).attr( "data-bundle" ).toLowerCase();
