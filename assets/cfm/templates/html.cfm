@@ -114,7 +114,7 @@
 						</li>
 					<cfelse>
 						<li class="list-group-item">
-							<div class="alert alert-info">
+							<div class="container-fluid">
 								<div class="row">
 									<div class="col-xs-6">
 										<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em>
@@ -128,49 +128,49 @@
 										</div>
 									</div>
 								</div>
+								<ul class="list-group tb-list-group">
+									<cfloop array="#arguments.suiteStats.specStats#" index="local.thisSpec">
+										<li class="list-group-item spec #lcase( local.thisSpec.status )#" data-bundleid="#arguments.bundleStats.id#" data-specid="#local.thisSpec.id#">
+											<div class="alert alert-info"><a href="#variables.baseURL#&testSpecs=#URLEncodedFormat( local.thisSpec.name )#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" class="#lcase( local.thisSpec.status )#">#local.thisSpec.name# (#local.thisSpec.totalDuration# ms)</a></div>
+											<div class="tb-statuses">
+												<cfswitch expression="#local.thisSpec.status#">
+													<cfcase value="failed">
+														<div class="well">
+															<strong>#htmlEditFormat( local.thisSpec.failMessage )#</strong>
+															<samp>#local.thisSpec.failOrigin[ 1 ].raw_trace#</samp>
+															<cfif structKeyExists( local.thisSpec.failOrigin[ 1 ], "codePrintHTML" )>
+																<code>#local.thisSpec.failOrigin[ 1 ].codePrintHTML#</code>
+															</cfif>
+															<a class="btn btn-warning" role="button" data-toggle="collapse" href="##failed#local.thisSpec.id#" aria-expanded="false" aria-controls="failed#local.thisSpec.id#">Failure Origin</a>
+															<div class="collapse" id="failed#local.thisSpec.id#" data-specid="#local.thisSpec.id#">
+																<cfdump var="#local.thisSpec.failorigin#" label="Failure Origin" />
+															</div>
+														</div>
+													</cfcase>
+													<cfcase value="error">
+														<div class="well">
+															<strong>#htmlEditFormat( local.thisSpec.error.message )#</strong>
+															<samp>#local.thisSpec.failOrigin[ 1 ].raw_trace#</samp>
+															<cfif structKeyExists( local.thisSpec.failOrigin[ 1 ], "codePrintHTML" )>
+																<code>#local.thisSpec.failOrigin[ 1 ].codePrintHTML#</code>
+															</cfif>
+															<a class="btn btn-danger" role="button" data-toggle="collapse" href="##error#local.thisSpec.id#" aria-expanded="false" aria-controls="error#local.thisSpec.id#">Exception Structure</a>
+															<div class="collapse" id="error#local.thisSpec.id#" data-specid="#local.thisSpec.id#">
+																<cfdump var="#local.thisSpec.error#" label="Exception Structure" />
+															</div>
+														</div>
+													</cfcase>
+												</cfswitch>
+											</div>
+										</li>
+									</cfloop>
+								</ul>
+								<cfif arrayLen( arguments.suiteStats.suiteStats )>
+									<cfloop array="#arguments.suiteStats.suiteStats#" index="local.nestedSuite">
+										#genSuiteReport( local.nestedSuite, arguments.bundleStats )#
+									</cfloop>
+								</cfif>
 							</div>
-							<ul class="list-group tb-list-group">
-								<cfloop array="#arguments.suiteStats.specStats#" index="local.thisSpec">
-									<li class="list-group-item spec #lcase( local.thisSpec.status )#" data-bundleid="#arguments.bundleStats.id#" data-specid="#local.thisSpec.id#">
-										<div class="alert alert-info"><a href="#variables.baseURL#&testSpecs=#URLEncodedFormat( local.thisSpec.name )#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" class="#lcase( local.thisSpec.status )#">#local.thisSpec.name# (#local.thisSpec.totalDuration# ms)</a></div>
-										<div class="tb-statuses">
-											<cfswitch expression="#local.thisSpec.status#">
-												<cfcase value="failed">
-													<div class="well">
-														<strong>#htmlEditFormat( local.thisSpec.failMessage )#</strong>
-														<samp>#local.thisSpec.failOrigin[ 1 ].raw_trace#</samp>
-														<cfif structKeyExists( local.thisSpec.failOrigin[ 1 ], "codePrintHTML" )>
-															<code>#local.thisSpec.failOrigin[ 1 ].codePrintHTML#</code>
-														</cfif>
-														<a class="btn btn-warning" role="button" data-toggle="collapse" href="##failed#local.thisSpec.id#" aria-expanded="false" aria-controls="failed#local.thisSpec.id#">Failure Origin</a>
-														<div class="collapse" id="failed#local.thisSpec.id#" data-specid="#local.thisSpec.id#">
-															<cfdump var="#local.thisSpec.failorigin#" label="Failure Origin" />
-														</div>
-													</div>
-												</cfcase>
-												<cfcase value="error">
-													<div class="well">
-														<strong>#htmlEditFormat( local.thisSpec.error.message )#</strong>
-														<samp>#local.thisSpec.failOrigin[ 1 ].raw_trace#</samp>
-														<cfif structKeyExists( local.thisSpec.failOrigin[ 1 ], "codePrintHTML" )>
-															<code>#local.thisSpec.failOrigin[ 1 ].codePrintHTML#</code>
-														</cfif>
-														<a class="btn btn-danger" role="button" data-toggle="collapse" href="##error#local.thisSpec.id#" aria-expanded="false" aria-controls="error#local.thisSpec.id#">Exception Structure</a>
-														<div class="collapse" id="error#local.thisSpec.id#" data-specid="#local.thisSpec.id#">
-															<cfdump var="#local.thisSpec.error#" label="Exception Structure" />
-														</div>
-													</div>
-												</cfcase>
-											</cfswitch>
-										</div>
-									</li>
-								</cfloop>
-							</ul>
-							<cfif arrayLen( arguments.suiteStats.suiteStats )>
-								<cfloop array="#arguments.suiteStats.suiteStats#" index="local.nestedSuite">
-									#genSuiteReport( local.nestedSuite, arguments.bundleStats )#
-								</cfloop>
-							</cfif>
 						</li>
 					</cfif>
 				</ul>
