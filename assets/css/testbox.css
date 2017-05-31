@@ -175,6 +175,13 @@ code{ padding: 2px 4px; color: #d14; white-space: nowrap; background-color: #f7f
 	}
 }
 
+.panel-primary .panel-heading a,
+.panel-primary .panel-heading a:visited,
+.panel-primary .panel-heading a:hover,
+.panel-primary .panel-heading a:active{
+	color:#FFF;
+}
+
 .debugBlock{
 	position:relative;
 	background-color: #fff;
