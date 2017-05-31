@@ -26,7 +26,70 @@ jQuery(document).ready(function() {
 		event.preventDefault();
 		return false;
 	});
+
+	// spec toggler
+	jQuery(document).on('click',"span.specStatus",function(event){
+		toggleSpecs( jQuery( event.currentTarget ).attr( "data-status" ), jQuery( event.currentTarget ).attr( "data-bundleid" ) );
+	});
+	// spec toggler
+	jQuery(document).on('click',"span.reset",function(event){
+		resetSpecs(event);
+	});
+	// Filter Bundles
+	jQuery(document).on('keyup',"##bundleFilter",function(event){
+		var targetText = jQuery( event.currentTarget ).val().toLowerCase();
+		jQuery( ".bundle" ).each(function( ik,iv ){
+			var bundle = jQuery( iv ).attr( "data-bundle" ).toLowerCase();
+			jQuery(iv).toggle( (bundle.search( targetText ) < 0)?false:true );
+		});
+	});
 });
+
+function resetSpecs(event){
+	jQuery("div.spec").each(function(ks,vs){
+		jQuery(vs).show();
+	});
+	jQuery("div.suite").each(function(ks,vs){
+		jQuery(vs).show();
+	});
+}
+
+function toggleSpecs( type, bundleID ){
+	jQuery("div.suite").each( function(ks,vs){
+		handleToggle( jQuery( vs ), bundleID, type );
+	} );
+	jQuery("div.spec").each( function(ks,vs){
+		handleToggle( jQuery( vs ), bundleID, type );
+	} );
+}
+
+function handleToggle( target, bundleID, type ){
+	// if bundleid passed and not the same bundle, skip
+	if( bundleID != undefined && jQuery(target).attr( "data-bundleid" ) != bundleID ){
+		return;
+	}
+	// toggle the opposite type
+	if( !jQuery(target).hasClass( type ) ){
+		jQuery(target).fadeOut();
+	} else {
+		// show the type you sent
+		jQuery(target).parents().fadeIn();
+		jQuery(target).fadeIn();
+	}
+}
+
+function toggleDebug( specid ){
+	jQuery("div.debugdata").each( function(ks,vs){
+
+		// if bundleid passed and not the same bundle
+		if( specid != undefined && jQuery(vs).attr( "data-specid" ) != specid ){
+			return;
+		}
+		// toggle.
+		jQuery(vs).fadeToggle();
+	});
+}
+
 function clearResults(){
 	jQuery('.tb-toggle-btn').eq(0).trigger('click');
 	jQuery("#tb-results").empty();
