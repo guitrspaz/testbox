@@ -174,3 +174,26 @@ code{ padding: 2px 4px; color: #d14; white-space: nowrap; background-color: #f7f
 		transform: rotate(0deg);
 	}
 }
+
+.debugBlock{
+	position:relative;
+	background-color: #fff;
+	border-color: #ddd;
+	border-width: 1px;
+	border-radius: 4px 4px 0 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	padding-top:40px;
+}
+
+.debugBlock:after{
+	position: absolute;
+	top: 15px;
+	left: 25px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #959595;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	content: "Incomplete";
+}
