@@ -106,16 +106,16 @@
 
 		<cfsavecontent variable="local.report">
 			<cfoutput>
-				<ul class="list-group spec #lcase( arguments.suiteStats.status )#" id="bundleStats_#arguments.bundleStats.path#" data-bundle="#arguments.bundleStats.path#">
+				<div class="spec #lcase( arguments.suiteStats.status )#" id="bundleStats_#arguments.bundleStats.path#" data-bundle="#arguments.bundleStats.path#">
 					<cfif !isSimpleValue( arguments.bundleStats.globalException )>
-						<li class="list-group-item">
+						<div class="spec-row">
 							<p class="danger">Global Bundle Exception: #arguments.bundleStats.path#</p>
 							<cfdump var="#arguments.bundleStats.globalException#" />
-						</li>
+						</div>
 					<cfelse>
-						<li class="list-group-item">
+						<div class="spec-row">
 							<div class="container-fluid">
-								<div class="row">
+								<div class="suite-stats">
 									<div class="col-xs-6">
 										<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em>
 									</div>
@@ -171,9 +171,9 @@
 									</cfloop>
 								</cfif>
 							</div>
-						</li>
+						</div>
 					</cfif>
-				</ul>
+				</div>
 			</cfoutput>
 		</cfsavecontent>
 		<cfreturn local.report>
