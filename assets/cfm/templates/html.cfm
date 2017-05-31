@@ -19,79 +19,81 @@
 	<div class="panel panel-info" id="globalStats">
 		<div class="panel-heading">Global Stats <em>(#results.getTotalDuration()# ms)</em></div>
 		<div class="panel-body">
-			<div class="row">
-				<div class="pull-left">
-					<span class="text-result text-info">Bundles <span class="badge">#results.getTotalBundles()#</span></span>
-					<span class="text-result text-info">Suites <span class="badge">#results.getTotalSuites()#</span></span>
-					<span class="text-result text-info">Specs <span class="badge">#results.getTotalSpecs()#</span></span>
-				</div>
-				<div class="pull-right">
-					<span class="text-result text-success">Pass <span class="badge">#results.getTotalPass()#</span></span>
-					<span class="text-result text-warning">Failures <span class="badge">#results.getTotalFail()#</span></span>
-					<span class="text-result text-danger">Errors <span class="badge">#results.getTotalError()#</span></span>
-					<span class="text-result text-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></span>
-				</div>
-			</div>
-			<cfif arrayLen( results.getLabels() )>
+			<div class="container-fluid">
 				<div class="row">
-					<a class="btn btn-info" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Labels Applied </a>
-					<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
-						<div class="well">
-							#ArrayToList(results.getLabels(),',')#
-						</div>
+					<div class="pull-left">
+						<span class="text-result text-info">Bundles <span class="badge">#results.getTotalBundles()#</span></span>
+						<span class="text-result text-info">Suites <span class="badge">#results.getTotalSuites()#</span></span>
+						<span class="text-result text-info">Specs <span class="badge">#results.getTotalSpecs()#</span></span>
+					</div>
+					<div class="pull-right">
+						<span class="text-result text-success">Pass <span class="badge">#results.getTotalPass()#</span></span>
+						<span class="text-result text-warning">Failures <span class="badge">#results.getTotalFail()#</span></span>
+						<span class="text-result text-danger">Errors <span class="badge">#results.getTotalError()#</span></span>
+						<span class="text-result text-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></span>
 					</div>
 				</div>
-			</cfif>
-			<div class="row">
-			<!--- Bundle Info --->
-				<cfloop array="#variables.bundleStats#" index="thisBundle">
-					<!--- Bundle div --->
-					<div class="bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
-						<h3>
-							<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em>
-						</h3>
-						<div class="row">
-							<div class="pull-left">
-								<span class="text-result text-info">Suites <span class="badge">#thisBundle.totalSuites#</span></span>
-								<span class="text-result text-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></span>
-							</div>
-							<div class="pull-right">
-								<span class="text-result text-success">Pass <span class="badge">#thisBundle.totalPass#</span></span>
-								<span class="text-result text-warning">Failures <span class="badge">#thisBundle.totalFail#</span></span>
-								<span class="text-result text-danger">Errors <span class="badge">#thisBundle.totalError#</span></span>
-								<span class="text-result text-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></span>
+				<cfif arrayLen( results.getLabels() )>
+					<div class="row">
+						<a class="btn btn-info" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Labels Applied </a>
+						<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
+							<div class="well">
+								#ArrayToList(results.getLabels(),',')#
 							</div>
 						</div>
-						<cfif ArrayLen(thisBundle.suiteStats)>
+					</div>
+				</cfif>
+				<div class="row">
+				<!--- Bundle Info --->
+					<cfloop array="#variables.bundleStats#" index="thisBundle">
+						<!--- Bundle div --->
+						<div class="bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
+							<h3>
+								<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em>
+							</h3>
 							<div class="row">
-								<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
-									#genSuiteReport( suiteStats,thisBundle )#
-								</cfloop>
+								<div class="pull-left">
+									<span class="text-result text-info">Suites <span class="badge">#thisBundle.totalSuites#</span></span>
+									<span class="text-result text-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></span>
+								</div>
+								<div class="pull-right">
+									<span class="text-result text-success">Pass <span class="badge">#thisBundle.totalPass#</span></span>
+									<span class="text-result text-warning">Failures <span class="badge">#thisBundle.totalFail#</span></span>
+									<span class="text-result text-danger">Errors <span class="badge">#thisBundle.totalError#</span></span>
+									<span class="text-result text-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></span>
+								</div>
 							</div>
-						</cfif>
-						<cfif arrayLen( thisBundle.debugBuffer )>
-							<div class="row">
-								<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
-								<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
-									<div class="well">
-										<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
-										<div id="debugBlock#thisBundle.id#">
-											<ul class="list-group">
-												<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
-													<li class="list-group-item">
-														<h3>Debug: <span class="label label-default">#thisDebug.label#</span></h3>
-														<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateTimeFormat( thisDebug.timestamp, "short" )#" top="#thisDebug.top#" />
-														<cfdump var="#thisDebug.thread#" label="Thread data" />
-													</li>
-												</cfloop>
-											</ul>
+							<cfif ArrayLen(thisBundle.suiteStats)>
+								<div class="row">
+									<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
+										#genSuiteReport( suiteStats,thisBundle )#
+									</cfloop>
+								</div>
+							</cfif>
+							<cfif arrayLen( thisBundle.debugBuffer )>
+								<div class="row">
+									<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
+									<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
+										<div class="well">
+											<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
+											<div id="debugBlock#thisBundle.id#">
+												<ul class="list-group">
+													<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
+														<li class="list-group-item">
+															<h3>Debug: <span class="label label-default">#thisDebug.label#</span></h3>
+															<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateTimeFormat( thisDebug.timestamp, "short" )#" top="#thisDebug.top#" />
+															<cfdump var="#thisDebug.thread#" label="Thread data" />
+														</li>
+													</cfloop>
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</cfif>
-					</div>
-				</cfloop>
+							</cfif>
+						</div>
+					</cfloop>
+				</div>
 			</div>
 		</div>
 	</div>
