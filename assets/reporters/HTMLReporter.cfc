@@ -31,7 +31,7 @@ component
 		variables.bundleStats = arguments.results.getBundleStats();
 
 		// prepare base links
-		variables.baseURL = '/assets/cfm/runner.cfm?directory='&variables.directory;
+		variables.baseURL = '/assets/cfm/runner.cfm?directory='&url.directory;
 		if( structKeyExists( url, "method") ){ variables.baseURL&= "method=#URLEncodedFormat( url.method )#"; }
 		if( structKeyExists( url, "output") ){ variables.baseURL&= "output=#URLEncodedFormat( url.output )#"; }
 
