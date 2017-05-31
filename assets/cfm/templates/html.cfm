@@ -19,12 +19,12 @@
 	<div class="panel panel-info" id="globalStats">
 		<div class="panel-heading">Global Stats <em>(#results.getTotalDuration()# ms)</em></div>
 		<div class="panel-body">
-			<div class="btn-group" role="group" aria-label="packages">
+			<div class="btn-group pull-left" role="group" aria-label="packages">
 				<button type="button" class="btn inactive-btn btn-info">Bundles <span class="badge">#results.getTotalBundles()#</span></button>
 				<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#results.getTotalSuites()#</span></button>
 				<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#results.getTotalSpecs()#</span></button>
 			</div>
-			<div class="btn-group" role="group" aria-label="statuses">
+			<div class="btn-group pull-right" role="group" aria-label="statuses">
 				<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#results.getTotalPass()#</span></button>
 				<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#results.getTotalFail()#</span></button>
 				<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#results.getTotalError()#</span></button>
@@ -51,11 +51,11 @@
 				<cfelse>
 					<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em></div>
 					<div class="panel-body">
-						<div class="btn-group" role="group" aria-label="packages">
+						<div class="btn-group pull-left" role="group" aria-label="packages">
 							<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#thisBundle.totalSuites#</span></button>
 							<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></button>
 						</div>
-						<div class="btn-group" role="group" aria-label="statuses">
+						<div class="btn-group pull-right" role="group" aria-label="statuses">
 							<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#thisBundle.totalPass#</span></button>
 							<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#thisBundle.totalFail#</span></button>
 							<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#thisBundle.totalError#</span></button>
@@ -107,7 +107,7 @@
 					<cfelse>
 						<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em></div>
 						<div class="panel-body">
-							<div class="btn-group" role="group" aria-label="statuses">
+							<div class="btn-group pull-right" role="group" aria-label="statuses">
 								<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></button>
 								<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></button>
 								<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></button>
