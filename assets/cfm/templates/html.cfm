@@ -112,10 +112,8 @@
 								<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></button>
 								<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></button>
 							</div>
-						</div>
-						<ul class="list-group">
-							<cfloop array="#arguments.suiteStats.specStats#" index="local.thisSpec">
-								<li class="list-group-item">
+							<div class="list-group">
+								<cfloop array="#arguments.suiteStats.specStats#" index="local.thisSpec">
 									<div class="panel panel-default spec #lcase( local.thisSpec.status )#" data-bundleid="#arguments.bundleStats.id#" data-specid="#local.thisSpec.id#">
 										<div class="panel-heading">
 											<a href="#variables.baseURL#&testSpecs=#URLEncodedFormat( local.thisSpec.name )#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" class="#lcase( local.thisSpec.status )#">#local.thisSpec.name# (#local.thisSpec.totalDuration# ms)</a>
@@ -149,8 +147,8 @@
 											</cfcase>
 										</cfswitch>
 									</div>
-								</li>
-							</cfloop>
+								</cfloop>
+							</div>
 						</div>
 						<cfif arrayLen( arguments.suiteStats.suiteStats )>
 							<ul class="list-group">
