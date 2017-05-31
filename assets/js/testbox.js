@@ -103,20 +103,20 @@ function clearResults(){
 	});
 }
 function runTests(src){
-	jQuery('#tb-results').html('<div class="alert alert-info"><span class="glyphicon normal-right-spinner" aria-hidden="true"></span>&nbsp;Please wait while tests are running...</div>');
+	jQuery('#tb-results').html('<div class="alert alert-info"><span class="glyphicon glyphicon-repeat normal-right-spinner" aria-hidden="true"></span>&nbsp;Please wait while tests are running...</div>');
 	jQuery.ajax({
 		url:src,
 		method:'get',
 		cache:false
 	}).done(function(data){
-		console.log(data);
+		//console.log(data);
 		jQuery('.tb-toggle-btn').eq(0).trigger('click');
 		jQuery('#tb-results').html(data);
 		jQuery('.clearResults').each(function(crk,crv){
 			jQuery(crv).show();
 		});
 	}).fail(function(data,err){
-		jQuery('#tb-results').html('<div class="alert alert-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span>&nbsp;The following error occurred: '+err.message+' See the console for more information.</div>');
-		console.log('extendedInfo',{data:data,error:err});
+		jQuery('#tb-results').html('<div class="alert alert-danger"><span class="glyphicon glyphicon-repeat glyphicon-alert" aria-hidden="true"></span>&nbsp;The following error occurred: '+err.message+' See the console for more information.</div>');
+		//console.log('extendedInfo',{data:data,error:err});
 	});
 }
