@@ -20,78 +20,76 @@
 		<div class="panel-heading">Global Stats <em>(#results.getTotalDuration()# ms)</em></div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="btn-group pull-left" role="group" aria-label="packages">
-					<button type="button" class="btn inactive-btn btn-info">Bundles <span class="badge">#results.getTotalBundles()#</span></button>
-					<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#results.getTotalSuites()#</span></button>
-					<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#results.getTotalSpecs()#</span></button>
+				<div class="pull-left">
+					<span class="text-result text-info">Bundles <span class="badge">#results.getTotalBundles()#</span></span>
+					<span class="text-result text-info">Suites <span class="badge">#results.getTotalSuites()#</span></span>
+					<span class="text-result text-info">Specs <span class="badge">#results.getTotalSpecs()#</span></span>
 				</div>
-				<div class="btn-group pull-right" role="group" aria-label="statuses">
-					<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#results.getTotalPass()#</span></button>
-					<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#results.getTotalFail()#</span></button>
-					<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#results.getTotalError()#</span></button>
-					<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></button>
+				<div class="pull-right">
+					<span class="text-result text-success">Pass <span class="badge">#results.getTotalPass()#</span></span>
+					<span class="text-result text-warning">Failures <span class="badge">#results.getTotalFail()#</span></span>
+					<span class="text-result text-danger">Errors <span class="badge">#results.getTotalError()#</span></span>
+					<span class="text-result text-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></span>
 				</div>
 			</div>
-			<div class="row">
-				<cfif arrayLen( results.getLabels() )>
+			<cfif arrayLen( results.getLabels() )>
+				<div class="row">
 					<a class="btn btn-info" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Labels Applied </a>
 					<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
 						<div class="well">
 							#ArrayToList(results.getLabels(),',')#
 						</div>
 					</div>
-				</cfif>
-			</div>
+				</div>
+			</cfif>
 			<div class="row">
 			<!--- Bundle Info --->
 				<cfloop array="#variables.bundleStats#" index="thisBundle">
 					<!--- Bundle div --->
-					<div class="panel panel-primary bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
-						<div class="panel-heading">
+					<div class="bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
+						<h3>
 							<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="btn-group pull-left" role="group" aria-label="packages">
-									<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#thisBundle.totalSuites#</span></button>
-									<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></button>
-								</div>
-								<div class="btn-group pull-right" role="group" aria-label="statuses">
-									<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#thisBundle.totalPass#</span></button>
-									<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#thisBundle.totalFail#</span></button>
-									<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#thisBundle.totalError#</span></button>
-									<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></button>
-								</div>
+						</h3>
+						<div class="row">
+							<div class="pull-left">
+								<span class="text-result text-info">Suites <span class="badge">#thisBundle.totalSuites#</span></span>
+								<span class="text-result text-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></span>
 							</div>
-							<cfif ArrayLen(thisBundle.suiteStats)>
-								<div class="row">
-									<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
-										#genSuiteReport( suiteStats,thisBundle )#
-									</cfloop>
-								</div>
-							</cfif>
-							<cfif arrayLen( thisBundle.debugBuffer )>
-								<div class="row">
-									<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
-									<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
-										<div class="well">
-											<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
-											<div id="debugBlock#thisBundle.id#">
-												<ul class="list-group">
-													<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
-														<li class="list-group-item">
-															<h3>Debug: <span class="label label-default">#thisDebug.label#</span></h3>
-															<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateTimeFormat( thisDebug.timestamp, "short" )#" top="#thisDebug.top#" />
-															<cfdump var="#thisDebug.thread#" label="Thread data" />
-														</li>
-													</cfloop>
-												</ul>
-											</div>
+							<div class="pull-right">
+								<span class="text-result text-success">Pass <span class="badge">#thisBundle.totalPass#</span></span>
+								<span class="text-result text-warning">Failures <span class="badge">#thisBundle.totalFail#</span></span>
+								<span class="text-result text-danger">Errors <span class="badge">#thisBundle.totalError#</span></span>
+								<span class="text-result text-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></span>
+							</div>
+						</div>
+						<cfif ArrayLen(thisBundle.suiteStats)>
+							<div class="row">
+								<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
+									#genSuiteReport( suiteStats,thisBundle )#
+								</cfloop>
+							</div>
+						</cfif>
+						<cfif arrayLen( thisBundle.debugBuffer )>
+							<div class="row">
+								<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
+								<div class="collapse" id="debug#thisBundle.id#" data-specid="#thisBundle.id#">
+									<div class="well">
+										<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
+										<div id="debugBlock#thisBundle.id#">
+											<ul class="list-group">
+												<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
+													<li class="list-group-item">
+														<h3>Debug: <span class="label label-default">#thisDebug.label#</span></h3>
+														<cfdump var="#thisDebug.data#" label="#thisDebug.label# - #dateTimeFormat( thisDebug.timestamp, "short" )#" top="#thisDebug.top#" />
+														<cfdump var="#thisDebug.thread#" label="Thread data" />
+													</li>
+												</cfloop>
+											</ul>
 										</div>
 									</div>
 								</div>
-							</cfif>
-						</div>
+							</div>
+						</cfif>
 					</div>
 				</cfloop>
 			</div>
@@ -120,11 +118,11 @@
 										<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em>
 									</div>
 									<div class="col-xs-6">
-										<div class="btn-group pull-right" role="group" aria-label="statuses">
-											<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></button>
-											<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></button>
-											<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></button>
-											<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></button>
+										<div class="pull-right">
+											<span class="text-result text-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></span>
+											<span class="text-result text-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></span>
+											<span class="text-result text-danger">Errors <span class="badge">#arguments.suiteStats.totalError#</span></span>
+											<span class="text-result text-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></span>
 										</div>
 									</div>
 								</div>
