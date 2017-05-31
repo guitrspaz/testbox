@@ -19,16 +19,16 @@
 	<div class="panel panel-info" id="globalStats">
 		<div class="panel-heading">Global Stats <em>(#results.getTotalDuration()# ms)</em></div>
 		<div class="panel-body">
-			<div class="label-block">
-				<span class="label label-info">Bundles <span class="badge">#results.getTotalBundles()#</span></span>
-				<span class="label label-info">Suites <span class="badge">#results.getTotalSuites()#</span></span>
-				<span class="label label-info">Specs <span class="badge">#results.getTotalSpecs()#</span></span>
+			<div class="btn-group" role="group" aria-label="packages">
+				<button type="button" class="btn inactive-btn btn-info">Bundles <span class="badge">#results.getTotalBundles()#</span></button>
+				<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#results.getTotalSuites()#</span></button>
+				<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#results.getTotalSpecs()#</span></button>
 			</div>
-			<div class="label-block">
-				<span class="label label-success">Pass <span class="badge">#results.getTotalPass()#</span></span>
-				<span class="label label-warning">Failures <span class="badge">#results.getTotalFail()#</span></span>
-				<span class="label label-error">Errors <span class="badge">#results.getTotalError()#</span></span>
-				<span class="label label-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></span>
+			<div class="btn-group" role="group" aria-label="statuses">
+				<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#results.getTotalPass()#</span></button>
+				<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#results.getTotalFail()#</span></button>
+				<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#results.getTotalError()#</span></button>
+				<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#results.getTotalSkipped()#</span></button>
 			</div>
 			<cfif arrayLen( results.getLabels() )>
 				<a class="btn btn-info" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Labels Applied </a>
@@ -51,15 +51,15 @@
 				<cfelse>
 					<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle">#thisBundle.path#</a> <em>(#thisBundle.totalDuration# ms)</em></div>
 					<div class="panel-body">
-						<div class="label-block">
-							<span class="label label-info">Suites <span class="badge">#thisBundle.totalSuites#</span></span>
-							<span class="label label-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></span>
+						<div class="btn-group" role="group" aria-label="packages">
+							<button type="button" class="btn inactive-btn btn-info">Suites <span class="badge">#thisBundle.totalSuites#</span></button>
+							<button type="button" class="btn inactive-btn btn-info">Specs <span class="badge">#thisBundle.totalSpecs#</span></button>
 						</div>
-						<div class="label-block">
-							<span class="label label-success">Pass <span class="badge">#thisBundle.totalPass#</span></span>
-							<span class="label label-warning">Failures <span class="badge">#thisBundle.totalFail#</span></span>
-							<span class="label label-error">Errors <span class="badge">#thisBundle.totalError#</span></span>
-							<span class="label label-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></span>
+						<div class="btn-group" role="group" aria-label="statuses">
+							<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#thisBundle.totalPass#</span></button>
+							<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#thisBundle.totalFail#</span></button>
+							<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#thisBundle.totalError#</span></button>
+							<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#thisBundle.totalSkipped#</span></button>
 						</div>
 						<cfif arrayLen( thisBundle.debugBuffer )>
 							<a class="btn btn-danger" role="button" data-toggle="collapse" href="##debug#thisBundle.id#" aria-expanded="false" aria-controls="debug#thisBundle.id#">Debug Panel</a>
@@ -107,11 +107,11 @@
 					<cfelse>
 						<div class="panel-heading"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em></div>
 						<div class="panel-body">
-							<div class="label-block">
-								<span class="label label-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></span>
-								<span class="label label-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></span>
-								<span class="label label-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></span>
-								<span class="label label-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></span>
+							<div class="btn-group" role="group" aria-label="statuses">
+								<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></button>
+								<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></button>
+								<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></button>
+								<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></button>
 							</div>
 						</div>
 						<ul class="list-group">
