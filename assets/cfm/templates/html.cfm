@@ -108,13 +108,17 @@
 					<cfelse>
 						<li class="list-group-item">
 							<div class="alert alert-info">
-								<div class="col-xs-6"><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em></div>
-								<div class="col-xs-6">
-									<div class="btn-group" role="group" aria-label="statuses">
-										<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></button>
-										<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></button>
-										<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></button>
-										<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></button>
+								<div class="row">
+									<div class="col-xs-6">
+										<a href="#variables.baseURL#&testBundles=#URLEncodedFormat( arguments.bundleStats.path )#" title="Run only this bundle">#arguments.suiteStats.name#</a> <em>(#arguments.suiteStats.totalDuration# ms)</em>
+									</div>
+									<div class="col-xs-6">
+										<div class="btn-group" role="group" aria-label="statuses">
+											<button type="button" class="btn inactive-btn btn-success">Pass <span class="badge">#arguments.suiteStats.totalPass#</span></button>
+											<button type="button" class="btn inactive-btn btn-warning">Failures <span class="badge">#arguments.suiteStats.totalFail#</span></button>
+											<button type="button" class="btn inactive-btn btn-error">Errors <span class="badge">#arguments.suiteStats.totalError#</span></button>
+											<button type="button" class="btn inactive-btn btn-info">Skipped <span class="badge">#arguments.suiteStats.totalSkipped#</span></button>
+										</div>
 									</div>
 								</div>
 							</div>
