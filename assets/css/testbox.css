@@ -178,17 +178,17 @@ code{ padding: 2px 4px; color: #d14; white-space: nowrap; background-color: #f7f
 	}
 }
 
-.panel-primary > .panel-heading a,
-.panel-primary > .panel-heading a:visited,
-.panel-primary > .panel-heading a:hover,
-.panel-primary > .panel-heading a:active{
+#tb-results .panel-primary > .panel-heading a,
+#tb-results .panel-primary > .panel-heading a:visited,
+#tb-results .panel-primary > .panel-heading a:hover,
+#tb-results .panel-primary > .panel-heading a:active{
 	color:#FFF;
 }
 
-.panel-default > .panel-heading a,
-.panel-default > .panel-heading a:visited,
-.panel-default > .panel-heading a:hover,
-.panel-default > .panel-heading a:active{
+#tb-results .panel-default > .panel-heading a,
+#tb-results .panel-default > .panel-heading a:visited,
+#tb-results .panel-default > .panel-heading a:hover,
+#tb-results .panel-default > .panel-heading a:active{
 	color:#000;
 }
 
