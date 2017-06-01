@@ -43,7 +43,7 @@ component
 
 		// prepare the report
 		savecontent variable="local.report"{
-			include application['base']&'/cfm/templates/html.cfm';
+			include application['base']&'assets/cfm/templates/html.cfm';
 		}
 		return local.report;
 	}
