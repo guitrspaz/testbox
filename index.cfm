@@ -92,16 +92,16 @@
 				<meta charset="utf-8">
 				<meta name="generator" content="TestBox v#variables.attrs['testbox'].getVersion()#">
 				<title>TestBox Test Runner</title>
-				<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-				<link rel="stylesheet" href="/assets/css/testbox.css" />
-				<link rel="stylesheet" href="/assets/css/html.css" />
+				<link rel="stylesheet" href="#application['base']#node_modules/bootstrap/dist/css/bootstrap.min.css" />
+				<link rel="stylesheet" href="#application['base']#assets/css/testbox.css" />
+				<link rel="stylesheet" href="#application['base']#assets/css/html.css" />
 				<!---
-				<script type="text/javascript" src="/node_modules/requirejs/require.js"></script>
-				<script type="text/javascript" src="/node_modules/normalize/lib/normalize.js"></script>
+				<script type="text/javascript" src="#application['base']#node_modules/requirejs/require.js"></script>
+				<script type="text/javascript" src="#application['base']#node_modules/normalize/lib/normalize.js"></script>
 				--->
-				<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
-				<script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-				<script type="text/javascript" src="/assets/js/testbox.js"></script>
+				<script type="text/javascript" src="#application['base']#node_modules/jquery/dist/jquery.min.js"></script>
+				<script type="text/javascript" src="#application['base']#node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+				<script type="text/javascript" src="#application['base']#assets/js/testbox.js"></script>
 				<cfif Len(Trim(variables.attrs['resultFile']))>
 					<script type="text/javascript">
 						jQuery(document).ready(function(){
@@ -118,7 +118,7 @@
 								<a href="/" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
 								<ul class="nav navbar-nav">
 									<li><p class="navbar-text">v#variables.attrs['testbox'].getVersion()#</p></li>
-									<li><a href="/assets/cfm/runner.cfm?directory=#variables.attrs['rootMapping']#/#ArrayToList(variables.attrs['path'],'/')#" class="tb-file-btn">Run All</a></li>
+									<li><a href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['rootMapping']#/#ArrayToList(variables.attrs['path'],'/')#" class="tb-file-btn">Run All</a></li>
 									<li><a href="##" class="clearResults"><span class="text-danger">Clear Results</span></a></li>
 								</ul>
 							</div>
@@ -166,7 +166,7 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="/assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#"
+																	href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"

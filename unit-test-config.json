@@ -4,10 +4,11 @@
 	"description": "Test Mapping Configuration TestBox Browser",
 	"main": "index.cfm",
 	"testRoot":"/src/tests",
+	"base":"/",
 	"mappings":{
 		"/testbox":"/Library/WebServer/Frameworks/testbox",
 		"/core":"/Library/WebServer/Documents/CoursePlus/core",
 		"/com":"/Library/WebServer/Documents/CoursePlus/com",
-		"/siteroot":"/Library/WebServer/Documents/TestBox"
+		"siteroot":"/Library/WebServer/Documents/TestBox"
 	}
 }

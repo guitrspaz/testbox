@@ -13,6 +13,7 @@ component{
 		cachePut('testingCacheInit',Now(),CreateTimeSpan(0,0,5,0),CreateTimeSpan(0,0,5,0));
 		application['assistant']=new assets.udf.assistant();
 		application['testbox']=new testbox.system.TestBox();
+		application['mockbox']=new testbox.system.MockBox();
 		var config=application['assistant'].configureBrowser();
 		StructEach(config,function(key,value){
 			application[key]=value;

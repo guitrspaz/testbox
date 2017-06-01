@@ -31,7 +31,7 @@ component
 		variables.bundleStats = arguments.results.getBundleStats();
 
 		// prepare base links
-		variables.baseURL = '/assets/cfm/runner.cfm?directory='&url.directory;
+		variables.baseURL = application['base']&'assets/cfm/runner.cfm?directory='&url.directory;
 		if( structKeyExists( url, "method") ){ variables.baseURL&= "method=#URLEncodedFormat( url.method )#"; }
 		if( structKeyExists( url, "output") ){ variables.baseURL&= "output=#URLEncodedFormat( url.output )#"; }
 
@@ -43,7 +43,7 @@ component
 
 		// prepare the report
 		savecontent variable="local.report"{
-			include '/assets/cfm/templates/html.cfm';
+			include application['base']&'/cfm/templates/html.cfm';
 		}
 		return local.report;
 	}
