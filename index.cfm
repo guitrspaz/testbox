@@ -179,12 +179,12 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#variables.attrs['linkPath']#"
+																	href="#application['base']#assets/cfm/tests/#variables.attrs.directoryContents.name#"
 																	<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															</span>
 															<a class="tb-file-btn"
-																href="#variables.attrs['linkPath']#"
+																href="#application['base']#assets/cfm/tests/#variables.attrs.directoryContents.name#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
@@ -193,12 +193,12 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#variables.attrs['linkPath']#?method=runRemote"
+																	href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs.directoryContents.name#"
 																	<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															</span>
 															<a class="tb-file-btn"
-																href="#variables.attrs['linkPath']#?method=runRemote"
+																href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs.directoryContents.name#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
