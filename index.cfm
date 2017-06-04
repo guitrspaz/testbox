@@ -159,6 +159,7 @@
 													</cfif>
 													<cfset variables.attrs['linkPath']&='/'&variables.attrs.directoryContents.name />
 													<cfset variables.attrs['niceName']=ReplaceNoCase(ReplaceNoCase(ReplaceNoCase(variables.attrs.directoryContents.name,'test_','','ALL'),'_',' ','ALL'),'.cfc','','ONE') />
+													<cfset variables.attrs['bundleName']=ReplaceNoCase(variables.attrs.directoryContents.name,'.cfc','','ONE') />
 													<cfif LCase(variables.attrs.directoryContents.type) EQ "dir" AND variables.attrs.directoryContents.name NEQ "reporters">
 														<cfset variables.attrs['directoryRunnerPath']&='/'&variables.attrs.directoryContents.name />
 														<li class="list-group-item">
@@ -193,12 +194,12 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs.directoryContents.name#"
+																	href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs['bundleName']#"
 																	<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															</span>
 															<a class="tb-file-btn"
-																href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs.directoryContents.name#"
+																href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs['bundleName']#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
