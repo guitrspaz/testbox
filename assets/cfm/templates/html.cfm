@@ -37,49 +37,51 @@
 	<cfif len( url.testBundles ) and !listFindNoCase( url.testBundles, thisBundle.path )>
 		<cfcontinue>
 	</cfif>
-	<!--- Bundle div --->
-	<div class="box bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
+	<cfif thisBundle.totalSuites OR thisBundle.totalSpecs>
+		<!--- Bundle div --->
+		<div class="box bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
 
-		<!--- bundle stats --->
-		<h2><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle" class="tb-file-btn">#thisBundle.path#</a> (#thisBundle.totalDuration# ms)</h2>
-		[ Suites/Specs: #thisBundle.totalSuites#/#thisBundle.totalSpecs# ]
-		[ <span class="specStatus passed" 	data-status="passed" data-bundleid="#thisBundle.id#">Pass: #thisBundle.totalPass#</span> ]
-		[ <span class="specStatus failed" 	data-status="failed" data-bundleid="#thisBundle.id#">Failures: #thisBundle.totalFail#</span> ]
-		[ <span class="specStatus error" 	data-status="error" data-bundleid="#thisBundle.id#">Errors: #thisBundle.totalError#</span> ]
-		[ <span class="specStatus skipped" 	data-status="skipped" data-bundleid="#thisBundle.id#">Skipped: #thisBundle.totalSkipped#</span> ]
-		[ <span class="reset" title="Clear status filters">Reset</span> ]
+			<!--- bundle stats --->
+			<h2><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle" class="tb-file-btn">#thisBundle.path#</a> (#thisBundle.totalDuration# ms)</h2>
+			[ Suites/Specs: #thisBundle.totalSuites#/#thisBundle.totalSpecs# ]
+			[ <span class="specStatus passed" 	data-status="passed" data-bundleid="#thisBundle.id#">Pass: #thisBundle.totalPass#</span> ]
+			[ <span class="specStatus failed" 	data-status="failed" data-bundleid="#thisBundle.id#">Failures: #thisBundle.totalFail#</span> ]
+			[ <span class="specStatus error" 	data-status="error" data-bundleid="#thisBundle.id#">Errors: #thisBundle.totalError#</span> ]
+			[ <span class="specStatus skipped" 	data-status="skipped" data-bundleid="#thisBundle.id#">Skipped: #thisBundle.totalSkipped#</span> ]
+			[ <span class="reset" title="Clear status filters">Reset</span> ]
 
-		<!-- Globa Error --->
-		<cfif !isSimpleValue( thisBundle.globalException )>
-			<h2>Global Bundle Exception<h2>
-			<cfdump var="#thisBundle.globalException#" />
-		</cfif>
+			<!-- Globa Error --->
+			<cfif !isSimpleValue( thisBundle.globalException )>
+				<h2>Global Bundle Exception<h2>
+				<cfdump var="#thisBundle.globalException#" />
+			</cfif>
 
-		<!-- Iterate over bundle suites -->
-		<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
-			<div class="suite #lcase( suiteStats.status)#" data-bundleid="#thisBundle.id#">
-			<ul>
-				#genSuiteReport( suiteStats, thisBundle )#
-			</ul>
-			</div>
-		</cfloop>
+			<!-- Iterate over bundle suites -->
+			<cfloop array="#thisBundle.suiteStats#" index="suiteStats">
+				<div class="suite #lcase( suiteStats.status)#" data-bundleid="#thisBundle.id#">
+				<ul>
+					#genSuiteReport( suiteStats, thisBundle )#
+				</ul>
+				</div>
+			</cfloop>
 
-		<!--- Debug Panel --->
-		<cfif arrayLen( thisBundle.debugBuffer )>
-			<hr>
-			<h2>Debug Stream <button onclick="toggleDebug( '#thisBundle.id#' )" title="Toggle the test debug stream">+</button></h2>
-			<div class="debugdata" data-specid="#thisBundle.id#">
-				<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
-				<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
-					<h1>#thisDebug.label#</h1>
-					<cfdump var="#thisDebug.data#" 		label="#thisDebug.label# - #dateFormat( thisDebug.timestamp, "short" )# at #timeFormat( thisDebug.timestamp, "full")#" top="#thisDebug.top#"/>
-					<cfdump var="#thisDebug.thread#" 	label="Thread data">
-					<p>&nbsp;</p>
-				</cfloop>
-			</div>
-		</cfif>
+			<!--- Debug Panel --->
+			<cfif arrayLen( thisBundle.debugBuffer )>
+				<hr>
+				<h2>Debug Stream <button onclick="toggleDebug( '#thisBundle.id#' )" title="Toggle the test debug stream">+</button></h2>
+				<div class="debugdata" data-specid="#thisBundle.id#">
+					<p>The following data was collected in order as your tests ran via the <em>debug()</em> method:</p>
+					<cfloop array="#thisBundle.debugBuffer#" index="thisDebug">
+						<h1>#thisDebug.label#</h1>
+						<cfdump var="#thisDebug.data#" 		label="#thisDebug.label# - #dateFormat( thisDebug.timestamp, "short" )# at #timeFormat( thisDebug.timestamp, "full")#" top="#thisDebug.top#"/>
+						<cfdump var="#thisDebug.thread#" 	label="Thread data">
+						<p>&nbsp;</p>
+					</cfloop>
+				</div>
+			</cfif>
 
-	</div>
+		</div>
+	</cfif>
 </cfloop>
 
 <!--- Recursive Output --->
