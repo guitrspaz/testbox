@@ -35,3 +35,13 @@
 #tb-results #globalStats{ background-color: #dceef4 }
 #tb-results .specStatus, .reset{ cursor:pointer;}
 #tb-results .suite{ margin-left: -1px;}
+#tb-results {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
