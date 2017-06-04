@@ -1,5 +1,5 @@
 /** utility **/
-body{
+body,html{
 	font-family:"Avenir Next W01","Avenir Next","Avenir","Open Sans","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 .centered { text-align: center !important; }
