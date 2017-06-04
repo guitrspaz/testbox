@@ -1,92 +1,91 @@
 <cfsetting showdebugoutput="false" >
-<cfparam name="url.path" default="" type="string" />
-<cfparam name="url.cpu" default="false" type="boolean" />
-<cfparam name="url.action" default="" type="string" />
 <cftry>
-	<cfscript>
-		//WriteDump(var=application,abort=true);
-		variables.attrs={};
-		try{
-			variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
-			variables.attrs['displayType']='dir';
-			variables.attrs['rootMapping']=( structKeyExists(application,'testRoot') && Len(Trim(application.testRoot)) )?Trim(application.testRoot):'/undefined';
-			variables.attrs['mappingParts']=[];
-			variables.attrs['path']=[];
-			variables.attrs['allParts']=[];
-			variables.attrs['testRoot']=variables.attrs['rootMapping'];
-			variables.attrs['unexpandedRoot']=variables.attrs['rootMapping'];
-			variables.attrs['testbox']=application.testbox;
-			variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
-			variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
-			variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
-			variables.attrs['directoryCounter']=0;
-			variables.attrs['linkPath']='';
-			variables.attrs['breadcrumbNav']='';
-			variables.attrs['groupTestPath']='/';
-			variables.attrs['totals']={};
-			variables.attrs['totals']['mapParts']=0;
-			variables.attrs['totals']['urlParts']=0;
-			variables.attrs['testResultContent']='';
-			variables.attrs['resultFile']='';
+	<cfsilent>
+		<cfparam name="url.path" default="" type="string" />
+		<cfparam name="url.cpu" default="false" type="boolean" />
+		<cfparam name="url.action" default="" type="string" />
+		<cfscript>
+			//WriteDump(var=application,abort=true);
+			variables.attrs={};
+			try{
+				variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
+				variables.attrs['displayType']='dir';
+				variables.attrs['rootMapping']=( structKeyExists(application,'testRoot') && Len(Trim(application.testRoot)) )?Trim(application.testRoot):'/undefined';
+				variables.attrs['mappingParts']=[];
+				variables.attrs['path']=[];
+				variables.attrs['allParts']=[];
+				variables.attrs['testRoot']=variables.attrs['rootMapping'];
+				variables.attrs['unexpandedRoot']=variables.attrs['rootMapping'];
+				variables.attrs['testbox']=application.testbox;
+				variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
+				variables.attrs['cpu']=( isValid('boolean',url.cpu) )?url.cpu:false;
+				variables.attrs['directoryContents']=QueryNew('name,directory,size,type,dateLastModified,attributes,mode','varchar,varchar,varchar,varchar,varchar,varchar,varchar');
+				variables.attrs['directoryCounter']=0;
+				variables.attrs['linkPath']='';
+				variables.attrs['breadcrumbNav']='';
+				variables.attrs['groupTestPath']='/';
+				variables.attrs['totals']={};
+				variables.attrs['totals']['mapParts']=0;
+				variables.attrs['totals']['urlParts']=0;
+				variables.attrs['testResultContent']='';
+				variables.attrs['resultFile']='';
 
-			/* Assembles testing path */
-			if( !directoryExists(variables.attrs.testRoot) ){
-				/* use expanded path if url path is not recognized */
-				variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
-			}
+				/* Assembles testing path */
+				if( !directoryExists(variables.attrs.testRoot) ){
+					/* use expanded path if url path is not recognized */
+					variables.attrs['testRoot']=ExpandPath(variables.attrs.rootMapping);
+				}
 
-			/* create an array of mapping directories and a total count */
-			variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs['unexpandedRoot'],'/'),function(pathItem){
-				return ( Len(Trim(pathItem)) );
-			});
-			variables.attrs['totals']['mapParts']=ArrayLen(variables.attrs['mappingParts']);
-
-			if( Len(Trim(variables.attrs['urlPath'])) ){
-				/* create an array of test path directories */
-				variables.attrs['displayType']='all';
-				variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
-					return (Len(Trim(pathItem)));
+				/* create an array of mapping directories and a total count */
+				variables.attrs['mappingParts']=ArrayFilter(ListToArray(variables.attrs['unexpandedRoot'],'/'),function(pathItem){
+					return ( Len(Trim(pathItem)) );
 				});
-				variables.attrs['totals']['urlParts']=ArrayLen(variables.attrs['path']);
+				variables.attrs['totals']['mapParts']=ArrayLen(variables.attrs['mappingParts']);
+
+				if( Len(Trim(variables.attrs['urlPath'])) ){
+					/* create an array of test path directories */
+					variables.attrs['displayType']='all';
+					variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
+						return (Len(Trim(pathItem)));
+					});
+					variables.attrs['totals']['urlParts']=ArrayLen(variables.attrs['path']);
+				}
+
+				/* assemble the testing root */
+				variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
+				variables.attrs['unexpandedRoot']=ListAppend(variables.attrs['unexpandedRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
+
+				/* validate directory before beginning tests */
+				if(directoryExists(variables.attrs.testRoot)){
+					variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
+					variables.attrs['directoryContents']=directoryList(
+						variables.attrs['testRoot'],
+						false,
+						'query'
+					);
+				} else {
+					throw(
+						detail="The defined test root does not exist.",
+						message='No root found: '&variables.attrs['testRoot'],
+						extendedInfo=SerializeJSON(variables.attrs),
+						type='NoDefinedRoot'
+					);
+				}
+
+				/* build breadcrumb navigation */
+				if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
+					variables.attrs['breadcrumbNav']=application.assistant.buildBreadCrumbs(
+						urlParts=variables.attrs['path'],
+						mappingParts=variables.attrs['mappingParts']
+					);
+				}
+			} catch( Any e ){
+				variables.attrs['cfcatch']=e;
+				WriteDump(var=variables.attrs,label="There was an error loading the browser.",abort=true);
 			}
-
-			/* assemble the testing root */
-			variables.attrs['testRoot']=ListAppend(variables.attrs['testRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
-			variables.attrs['unexpandedRoot']=ListAppend(variables.attrs['unexpandedRoot'],ArrayToList(variables.attrs['path'],'/'),'/');
-
-			/* validate directory before beginning tests */
-			if(directoryExists(variables.attrs.testRoot)){
-				variables.attrs['directoryCounter']=ArrayLen(createObject("java","java.io.File").init(Trim(variables.attrs.testRoot)).list());
-				variables.attrs['directoryContents']=directoryList(
-					variables.attrs['testRoot'],
-					false,
-					'query'
-				);
-			} else {
-				throw(
-					detail="The defined test root does not exist.",
-					message='No root found: '&variables.attrs['testRoot'],
-					extendedInfo=SerializeJSON(variables.attrs),
-					type='NoDefinedRoot'
-				);
-			}
-
-			/* build breadcrumb navigation */
-			if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
-				variables.attrs['breadcrumbNav']=application.assistant.buildBreadCrumbs(
-					urlParts=variables.attrs['path'],
-					mappingParts=variables.attrs['mappingParts']
-				);
-			}
-		} catch( Any e ){
-			variables.attrs['cfcatch']=e;
-			WriteDump(var=variables.attrs,label="There was an error loading the browser.",abort=true);
-		}
-	</cfscript>
-
-	<cfoutput>
-	<!--- Do HTML --->
-		<!DOCTYPE html>
+		</cfscript>
+	</cfsilent>
+	<cfoutput><!DOCTYPE html>
 		<html>
 			<head>
 				<meta charset="utf-8">
