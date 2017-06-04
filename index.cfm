@@ -145,7 +145,7 @@
 											</div>
 											<ul id="contents" class="collapse list-group in" role="tabpanel" aria-label="Contents: #variables.attrs['testRoot']#">
 												<cfloop query="variables.attrs.directoryContents">
-													<cfif refind( "^\.", variables.attrs.directoryContents.name )>
+													<cfif refind( "^\.", variables.attrs.directoryContents.name ) OR Trim(LCase(variables.attrs.directoryContents.name)) EQ 'config'>
 														<cfcontinue>
 													</cfif>
 													<cfset variables.attrs['linkPath']=variables.attrs['rootMapping']&'/' />
