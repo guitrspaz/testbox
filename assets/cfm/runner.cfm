@@ -3,15 +3,10 @@
 	url.directory=variables.directory;
 	if( Len(Trim(variables.directory)) && DirectoryExists(ExpandPath(variables.directory)) ){
 		variables.runParams={};
+		variables.runParams['directory']=variables.directory;
 		variables.runParams['reporter']='assets.reporters.HTMLReporter';
 		if( structKeyExists(url,'bundles') && Len(Trim(url.bundles)) ){
-			variables.bundlePaths=ListToArray(Trim(url.bundles),',');
-			variables.testBundles=ArrayMap(variables.bundlePaths,function(bundle){
-				return ReplaceNoCase(Replace(variables.runParams['directory'],'/','','ONE'),'/','.','ALL')&Trim(bundle);
-			});
-			variables.runParams['testBundles']=ArrayToList(variables.testBundles,',');
-		} else {
-			variables.runParams['directory']=variables.directory;
+			variables.runParams['testBundles']=Trim(url.bundles);
 		}
 		//#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#
 		application.testbox.runRemote(argumentCollection=variables.runParams);
