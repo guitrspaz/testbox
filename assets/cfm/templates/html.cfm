@@ -10,9 +10,8 @@
 
 <!--- Global Stats --->
 <div class="box" id="globalStats">
-
 <div class="buttonBar">
-	#variables.baseURL#&nbsp;
+	#ListLast(variables.baseURL,'=')#&nbsp;
 	<a href="#variables.baseURL#" class="tb-file-btn"><button title="Run all the tests">Run All</button></a>
 	<button onclick="toggleDebug()" title="Toggle the test debug information">Debug</button>
 </div>
@@ -42,7 +41,7 @@
 		<div class="box bundle" id="bundleStats_#thisBundle.path#" data-bundle="#thisBundle.path#">
 
 			<!--- bundle stats --->
-			<h2><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle" class="tb-file-btn">#thisBundle.path#</a> (#thisBundle.totalDuration# ms)</h2>
+			<h2><a href="#variables.baseURL#&testBundles=#URLEncodedFormat( thisBundle.path )#" title="Run only this bundle" class="tb-file-btn">#thisBundle.name#</a> (#thisBundle.totalDuration# ms)</h2>
 			[ Suites/Specs: #thisBundle.totalSuites#/#thisBundle.totalSpecs# ]
 			[ <span class="specStatus passed" 	data-status="passed" data-bundleid="#thisBundle.id#">Pass: #thisBundle.totalPass#</span> ]
 			[ <span class="specStatus failed" 	data-status="failed" data-bundleid="#thisBundle.id#">Failures: #thisBundle.totalFail#</span> ]
