@@ -32,8 +32,8 @@ component
 
 		// prepare base links
 		variables.baseURL = application['base']&'assets/cfm/runner.cfm?directory='&url.directory;
-		if( structKeyExists( url, "method") ){ variables.baseURL&= "method=#URLEncodedFormat( url.method )#"; }
-		if( structKeyExists( url, "output") ){ variables.baseURL&= "output=#URLEncodedFormat( url.output )#"; }
+		if( structKeyExists( url, "method") ){ variables.baseURL&= "&method=#URLEncodedFormat( url.method )#"; }
+		if( structKeyExists( url, "output") ){ variables.baseURL&= "&output=#URLEncodedFormat( url.output )#"; }
 
 		// prepare incoming params
 		if( !structKeyExists( url, "testMethod") ){ url.testMethod = ""; }

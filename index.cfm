@@ -14,7 +14,7 @@
 				variables.attrs['mappingParts']=[];
 				variables.attrs['path']=[];
 				variables.attrs['allParts']=[];
-				variables.attrs['testRoot']=variables.attrs['rootMapping'];
+				variables.attrs['testRoot']=ReplaceNoCase(variables.attrs['rootMapping'],application['testParent'],'/','ONE');
 				variables.attrs['unexpandedRoot']=variables.attrs['rootMapping'];
 				variables.attrs['testbox']=application.testbox;
 				variables.attrs['action']=(Len(Trim(url.action)))?URLDecode(Trim(url.action)):'';
@@ -46,7 +46,7 @@
 					/* create an array of test path directories */
 					variables.attrs['displayType']='all';
 					variables.attrs['path']=ArrayFilter(ListToArray(variables.attrs.urlPath,'/'),function(pathItem){
-						return (Len(Trim(pathItem)));
+						return (Len(Trim(pathItem)) && !ArrayFindNoCase(variables.attrs['mappingParts'],pathItem));
 					});
 					variables.attrs['totals']['urlParts']=ArrayLen(variables.attrs['path']);
 				}
@@ -71,6 +71,8 @@
 						type='NoDefinedRoot'
 					);
 				}
+
+				//WriteDump(var=variables.attrs,abort=true);
 
 				/* build breadcrumb navigation */
 				if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
@@ -114,7 +116,7 @@
 					<header id="masthead" role="navigation">
 						<nav class="navbar navbar-default navbar-static-top" id="site-branding">
 							<div class="container-fluid">
-								<a href="/" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
+								<a href="#application['base']#" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
 								<ul class="nav navbar-nav">
 									<li><p class="navbar-text">v#variables.attrs['testbox'].getVersion()#</p></li>
 									<li><a href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['rootMapping']#/#ArrayToList(variables.attrs['path'],'/')#" class="tb-file-btn">Run All</a></li>
@@ -170,10 +172,10 @@
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
-																	href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"
+																	href="#application['base']#index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</span>
-															<a href="index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
+															<a href="#application['base']#index.cfm?path=#URLEncodedFormat(variables.attrs['linkPath'])#"><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfm" and variables.attrs.directoryContents.name NEQ "Application.cfm">
 														<li class="list-group-item">
@@ -194,12 +196,12 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs['bundleName']#"
+																	href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&method=runRemote&testBundles=#URLEncodedFormat(ReplaceNoCase(ReplaceNoCase(Right(variables.attrs['linkPath'],Len(Trim(variables.attrs['linkPath']))-1),'.cfc','','ONE'),'/','.','ALL'))#"
 																	<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															</span>
 															<a class="tb-file-btn"
-																href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&bundles=#variables.attrs['bundleName']#"
+																href="#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#&method=runRemote&testBundles=#URLEncodedFormat(ReplaceNoCase(ReplaceNoCase(Right(variables.attrs['linkPath'],Len(Trim(variables.attrs['linkPath']))-1),'.cfc','','ONE'),'/','.','ALL'))#"
 																<cfif !variables.attrs['cpu']>target="_blank"</cfif>
 															><span style="text-transform:capitalize;">#variables.attrs['niceName']#</span></a>
 														</li>

@@ -5,8 +5,8 @@
 		variables.runParams={};
 		variables.runParams['directory']=variables.directory;
 		variables.runParams['reporter']='assets.reporters.HTMLReporter';
-		if( structKeyExists(url,'bundles') && Len(Trim(url.bundles)) ){
-			variables.runParams['testBundles']=Trim(url.bundles);
+		if( structKeyExists(url,'testBundles') && Len(Trim(url.testBundles)) ){
+			variables.runParams['testBundles']=Trim(url.testBundles);
 		}
 		//#application['base']#assets/cfm/runner.cfm?directory=#variables.attrs['directoryRunnerPath']#
 		application.testbox.runRemote(argumentCollection=variables.runParams);

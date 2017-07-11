@@ -3,12 +3,9 @@
 	"version": "1.0.0",
 	"description": "Test Mapping Configuration TestBox Browser",
 	"main": "index.cfm",
-	"testRoot":"/src/tests",
+	"testRoot":"/src/tests/suites",
 	"base":"/",
-	"mappings":{
-		"/testbox":"/Library/WebServer/Frameworks/testbox",
-		"/core":"/Library/WebServer/Documents/CoursePlus/core",
-		"/com":"/Library/WebServer/Documents/CoursePlus/com",
-		"siteroot":"/Library/WebServer/Documents/TestBox"
-	}
+	"reportersDirectory":"assets.reporters",
+	"reporterName":"HTMLReporter",
+	"mappings":{ }
 }
