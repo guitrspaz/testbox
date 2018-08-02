@@ -21,6 +21,8 @@ component{
 		application['reporterName']='HTMLReporter';
 		application['reportersDirectory']='src.tests.resources.reporters';
 		application['parentDir']=ExpandPath('../');
+		application['browserRoot']=getDirectoryFromPath(getCurrentTemplatePath());
+
 		try{
 			application['testbox']=new testbox.system.TestBox();
 		} catch( Any e ){
