@@ -5,7 +5,6 @@
 		<cfparam name="url.cpu" default="false" type="boolean" />
 		<cfparam name="url.action" default="" type="string" />
 		<cfscript>
-			WriteDump(var=cgi);
 			WriteDump(var=application);
 			abort;
 			variables.attrs={};
