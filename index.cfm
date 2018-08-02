@@ -5,9 +5,11 @@
 		<cfparam name="url.cpu" default="false" type="boolean" />
 		<cfparam name="url.action" default="" type="string" />
 		<cfscript>
-			WriteDump(var=cgi);
-			WriteDump(var=application);
-			abort;
+			/*
+				WriteDump(var=cgi);
+				WriteDump(var=application);
+				abort;
+			*/
 			variables.attrs={};
 			try{
 				variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
@@ -194,16 +196,17 @@
 															><span style="text-transform:capitalize;">#variables.attrs.niceName#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfc" and variables.attrs.directoryContents.name NEQ "Application.cfc">
+														<cfset variables.attrs['testBundles']=( application.useFull )?ReplaceNoCase(ReplaceNoCase(Right(variables.attrs.linkPath,Len(Trim(variables.attrs.linkPath))-1),'.cfc','','ONE'),'/','.','ALL'):ListLast(ReplaceNoCase(ReplaceNoCase(Right(variables.attrs.linkPath,Len(Trim(variables.attrs.linkPath))-1),'.cfc','','ONE'),'/','.','ALL'),'.') />
 														<li class="list-group-item">
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(ListLast(ReplaceNoCase(ReplaceNoCase(Right(variables.attrs.linkPath,Len(Trim(variables.attrs.linkPath))-1),'.cfc','','ONE'),'/','.','ALL'),'.'))#"
+																	href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(variables.attrs.testBundles)#"
 																	<cfif !variables.attrs.cpu>target="_blank"</cfif>
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															</span>
 															<a class="tb-file-btn"
-																href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(ListLast(ReplaceNoCase(ReplaceNoCase(Right(variables.attrs.linkPath,Len(Trim(variables.attrs.linkPath))-1),'.cfc','','ONE'),'/','.','ALL'),'.'))#"
+																href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(variables.attrs.testBundles)#"
 																<cfif !variables.attrs.cpu>target="_blank"</cfif>
 															><span style="text-transform:capitalize;">#variables.attrs.niceName#</span></a>
 														</li>

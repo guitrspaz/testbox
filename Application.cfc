@@ -25,6 +25,7 @@ component{
 		application['templatePath']=getCurrentTemplatePath();
 		application['fullPath']=getDirectoryFromPath(getCurrentTemplatePath());
 		application['base']=(FindNoCase(application.serverPath,application.fullPath))?ReplaceNoCase(application.fullPath,application.serverPath,'','ONE'):'/';
+		application['useFull']=(FindNoCase(application.serverPath,application.fullPath))?true:false;
 
 		try{
 			application['testbox']=new testbox.system.TestBox();
@@ -56,7 +57,6 @@ component{
 			return (ArrayFindNoCase(ListToArray(application.base,'/'),pathPart));
 		}),'/');
 		application['testParent']='/'&parts;
-
 		application['reporter']=( Find('.',application.reporterName) )?application.reporterName:application.reportersDirectory&'.'&application.reporterName;
 		return true;
 	}

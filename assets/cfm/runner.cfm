@@ -4,7 +4,7 @@
 	if( Len(Trim(variables.directory)) && DirectoryExists(ExpandPath(variables.directory)) ){
 		variables.runParams={};
 		variables.runParams['directory']=variables.directory;
-		variables.runParams['reporter']='assets.reporters.HTMLReporter';
+		variables.runParams['reporter']=application.reporter;
 		if( structKeyExists(url,'testBundles') && Len(Trim(url.testBundles)) ){
 			variables.runParams['testBundles']=Trim(url.testBundles);
 		}
