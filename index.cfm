@@ -5,11 +5,6 @@
 		<cfparam name="url.cpu" default="false" type="boolean" />
 		<cfparam name="url.action" default="" type="string" />
 		<cfscript>
-			/*
-				WriteDump(var=cgi);
-				WriteDump(var=application);
-				abort;
-			*/
 			variables.attrs={};
 			try{
 				variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
@@ -82,7 +77,8 @@
 				if( ArrayLen(variables.attrs.path) || ArrayLen(variables.attrs.mappingParts) ){
 					variables.attrs['breadcrumbNav']=application.assistant.buildBreadCrumbs(
 						urlParts=variables.attrs.path,
-						mappingParts=variables.attrs.mappingParts
+						mappingParts=variables.attrs.mappingParts,
+						baseURL=application.base
 					);
 				}
 			} catch( Any e ){
@@ -120,10 +116,10 @@
 					<header id="masthead" role="navigation">
 						<nav class="navbar navbar-default navbar-static-top" id="site-branding">
 							<div class="container-fluid">
-								<a href="#application.base#" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
+								<a href="#application.testboxRoot#" class="navbar-brand"><img src="//www.ortussolutions.com/__media/testbox-185.png" alt="TestBox" id="tb-logo" /></a>
 								<ul class="nav navbar-nav">
 									<li><p class="navbar-text">v#variables.attrs.testbox.getVersion()#</p></li>
-									<li><a href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.rootMapping#/#ArrayToList(variables.attrs.path,'/')#" class="tb-file-btn">Run All</a></li>
+									<li><a href="#application.testboxRoot#assets/cfm/runner.cfm?directory=#variables.attrs.rootMapping#/#ArrayToList(variables.attrs.path,'/')#" class="tb-file-btn">Run All</a></li>
 									<li><a href="##" class="clearResults"><span class="text-danger">Clear Results</span></a></li>
 								</ul>
 							</div>
@@ -172,11 +168,11 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#"
+																	href="#application.testboxRoot#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#"
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 																<a class="btn btn-default tb-dir-btn"
 																	role="button"
-																	href="#application.base#index.cfm?path=#URLEncodedFormat(variables.attrs.linkPath)#"
+																	href="#application.testboxRoot#index.cfm?path=#URLEncodedFormat(variables.attrs.linkPath)#"
 																><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</span>
 															<a href="#application.base#index.cfm?path=#URLEncodedFormat(variables.attrs.linkPath)#"><span style="text-transform:capitalize;">#variables.attrs.niceName#</span></a>
@@ -186,27 +182,27 @@
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#application.base#assets/cfm/tests/#variables.attrs.directoryContents.name#"
+																	href="#application.testboxRoot#assets/cfm/tests/#variables.attrs.directoryContents.name#"
 																	<cfif !variables.attrs.cpu>target="_blank"</cfif>
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															</span>
 															<a class="tb-file-btn"
-																href="#application.base#assets/cfm/tests/#variables.attrs.directoryContents.name#"
+																href="#application.testboxRoot#assets/cfm/tests/#variables.attrs.directoryContents.name#"
 																<cfif !variables.attrs.cpu>target="_blank"</cfif>
 															><span style="text-transform:capitalize;">#variables.attrs.niceName#</span></a>
 														</li>
 													<cfelseif listLast( variables.attrs.directoryContents.name, ".") EQ "cfc" and variables.attrs.directoryContents.name NEQ "Application.cfc">
-														<cfset variables.attrs['testBundles']=( application.useFull )?ReplaceNoCase(ReplaceNoCase(Right(variables.attrs.linkPath,Len(Trim(variables.attrs.linkPath))-1),'.cfc','','ONE'),'/','.','ALL'):ListLast(ReplaceNoCase(ReplaceNoCase(Right(variables.attrs.linkPath,Len(Trim(variables.attrs.linkPath))-1),'.cfc','','ONE'),'/','.','ALL'),'.') />
+														<cfset variables.attrs['testBundles']=ListLast(ReplaceNoCase(ReplaceNoCase(Right(variables.attrs.linkPath,Len(Trim(variables.attrs.linkPath))-1),'.cfc','','ONE'),'/','.','ALL'),'.') />
 														<li class="list-group-item">
 															<span class="btn-group">
 																<a class="btn btn-success tb-dir-btn tb-file-btn"
 																	role="button"
-																	href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(variables.attrs.testBundles)#"
+																	href="#application.testboxRoot#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(variables.attrs.testBundles)#"
 																	<cfif !variables.attrs.cpu>target="_blank"</cfif>
 																><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
 															</span>
 															<a class="tb-file-btn"
-																href="#application.base#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(variables.attrs.testBundles)#"
+																href="#application.testboxRoot#assets/cfm/runner.cfm?directory=#variables.attrs.directoryRunnerPath#&method=runRemote&testBundles=#URLEncodedFormat(variables.attrs.testBundles)#"
 																<cfif !variables.attrs.cpu>target="_blank"</cfif>
 															><span style="text-transform:capitalize;">#variables.attrs.niceName#</span></a>
 														</li>

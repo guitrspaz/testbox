@@ -18,13 +18,14 @@ component
 
 	public String function buildBreadCrumbs(
 		required Array urlParts,
-		required Array mappingParts
+		required Array mappingParts,
+		required String baseURL
 	){
 		var errorStruct={
 			start:Now(),
 			mappingParts:arguments.mappingParts,
 			urlParts:arguments.urlParts,
-			urlString:'/',
+			urlString:arguments.baseURL,
 			logType:'warning',
 			encodedPath:'/',
 			result:'',
@@ -50,7 +51,7 @@ component
 						isReachable=true;
 					}
 					if( isReachable ){
-						errorStruct.result&='<li><a href="index.cfm">'&mp&'</a></li>';
+						errorStruct.result&='<li><a href="'&errorStruct.urlString&'">'&mp&'</a></li>';
 					} else {
 						errorStruct.result&='<li class="unreachable">'&mp&'</li>';
 					}
@@ -83,7 +84,7 @@ component
 			errorStruct.cfcatch=e;
 			errorStruct.logType='error';
 		}
-		if( errorStruct.logType!='information' ){
+		if( errorStruct.logType!='test' ){
 			WriteLog('assets.udf.Assistant.buildBreadCrumbs() > '&SerializeJSON(errorStruct),errorStruct.logType,'yes','TestBox');
 		}
 		return errorStruct.result;

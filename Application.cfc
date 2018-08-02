@@ -26,6 +26,7 @@ component{
 		application['fullPath']=getDirectoryFromPath(getCurrentTemplatePath());
 		application['base']=(FindNoCase(application.serverPath,application.fullPath))?ReplaceNoCase(application.fullPath,application.serverPath,'','ONE'):'/';
 		application['useFull']=(FindNoCase(application.serverPath,application.fullPath))?true:false;
+		application['testboxRoot']=application.base;
 
 		try{
 			application['testbox']=new testbox.system.TestBox();
