@@ -5,7 +5,9 @@
 		<cfparam name="url.cpu" default="false" type="boolean" />
 		<cfparam name="url.action" default="" type="string" />
 		<cfscript>
-			WriteDump(var=application,abort=true);
+			WriteDump(var=cgi);
+			WriteDump(var=application);
+			abort;
 			variables.attrs={};
 			try{
 				variables.attrs['urlPath']=(isValid('string',url.path) && Len(Trim(url.path)))?URLDecode(Trim(url.path)):'';
