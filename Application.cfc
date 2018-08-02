@@ -42,17 +42,17 @@ component{
 		}
 
 		//reads configuration into application
-		var config=application['assistant'].configureBrowser(GetDirectoryFromPath( GetCurrentTemplatePath() ));//path to server
+		var config=application.assistant.configureBrowser(GetDirectoryFromPath( GetCurrentTemplatePath() ));//path to server
 		application['configuration']=config;
 		StructEach(config,function(key,value){
 			application[key]=value;
 		});
-		var parts=ArrayToList(ArrayFilter(ListToArray(application['testRoot'],'/'),function(pathPart){
-			return (ArrayFindNoCase(ListToArray(application['base'],'/'),pathPart));
+		var parts=ArrayToList(ArrayFilter(ListToArray(application.testRoot,'/'),function(pathPart){
+			return (ArrayFindNoCase(ListToArray(application.base,'/'),pathPart));
 		}),'/');
 		application['testParent']='/'&parts;
 
-		application['reporter']=( Find('.',application['reporterName']) )?application['reporterName']:application['reportersDirectory']&'.'&application['reporterName'];
+		application['reporter']=( Find('.',application.reporterName) )?application.reporterName:application.reportersDirectory&'.'&application.reporterName;
 		return true;
 	}
 }
