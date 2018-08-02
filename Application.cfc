@@ -23,7 +23,9 @@ component{
 		application['parentDir']=ExpandPath('../');
 		application['serverPath']=ReplaceNoCase(cgi.PATH_TRANSLATED,cgi.SCRIPT_NAME,'','ONE');
 		application['templatePath']=getCurrentTemplatePath();
-		application['base']=ReplaceNoCase(getDirectoryFromPath(getCurrentTemplatePath()),application.serverPath,'','ONE');
+		application['fullPath']=getDirectoryFromPath(getCurrentTemplatePath());
+		application['base']=(FindNoCase(application.serverPath,application.fullPath))?ReplaceNoCase(application.fullPath,application.serverPath,'','ONE'):'/';
+
 		try{
 			application['testbox']=new testbox.system.TestBox();
 		} catch( Any e ){
