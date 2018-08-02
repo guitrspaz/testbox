@@ -21,7 +21,8 @@ component{
 		application['reporterName']='HTMLReporter';
 		application['reportersDirectory']='src.tests.resources.reporters';
 		application['parentDir']=ExpandPath('../');
-		application['browserRoot']=getCurrentTemplatePath();
+		application['root']=getDirectoryFromPath(getCurrentTemplatePath());
+		application['serverRoot']=$_SERVER['DOCUMENT_ROOT'];
 
 		try{
 			application['testbox']=new testbox.system.TestBox();
