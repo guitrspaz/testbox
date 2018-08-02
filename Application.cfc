@@ -21,7 +21,9 @@ component{
 		application['reporterName']='HTMLReporter';
 		application['reportersDirectory']='src.tests.resources.reporters';
 		application['parentDir']=ExpandPath('../');
-		application['root']=getDirectoryFromPath(getCurrentTemplatePath());
+		application['serverPath']=ReplaceNoCase(cgi.PATH_TRANSLATED,cgi.SCRIPT_NAME,'','ONE');
+		application['templatePath']=getCurrentTemplatePath();
+		application['base']=ReplaceNoCase(getDirectoryFromPath(getCurrentTemplatePath()),application.serverPath,'','ONE');
 		try{
 			application['testbox']=new testbox.system.TestBox();
 		} catch( Any e ){

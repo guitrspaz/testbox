@@ -4,7 +4,6 @@
 	"description": "Test Mapping Configuration TestBox Browser",
 	"main": "index.cfm",
 	"testRoot":"/src/tests/suites",
-	"base":"/",
 	"reportersDirectory":"assets.reporters",
 	"reporterName":"HTMLReporter",
 	"mappings":{ }
